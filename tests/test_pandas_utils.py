@@ -1,11 +1,12 @@
 """Tests for pandas utility functions."""
 
-import pandas as pd
 import pytest
 
 # Check if pandas is available
 pandas_available = True
 try:
+    import pandas as pd
+
     from medchem_filter import FilterGroup, PAINSFilter, PropertyFilter, ReactiveFilter
     from medchem_filter.pandas_utils import (
         add_mol_column,
@@ -16,6 +17,17 @@ try:
     )
 except ImportError:
     pandas_available = False
+    # Create dummy objects to prevent NameError at module level
+    pd = None
+    FilterGroup = None
+    PAINSFilter = None
+    PropertyFilter = None
+    ReactiveFilter = None
+    add_mol_column = None
+    apply_filters_to_dataframe = None
+    calculate_properties_for_dataframe = None
+    filter_by_properties = None
+    filter_dataframe = None
 
 
 @pytest.mark.skipif(not pandas_available, reason="pandas not installed")
@@ -54,8 +66,8 @@ class TestPandasUtils:
         assert len(filtered) == 2
         assert "passes_filter" in filtered.columns
         assert "failure_reasons" in filtered.columns
-        assert filtered["passes_filter"].iloc[0] is True
-        assert filtered["passes_filter"].iloc[1] is False
+        assert filtered["passes_filter"].iloc[0] == True  # noqa: E712
+        assert filtered["passes_filter"].iloc[1] == False  # noqa: E712
 
     def test_apply_filters_to_dataframe(self):
         """Test applying multiple filters to DataFrame."""
@@ -65,9 +77,9 @@ class TestPandasUtils:
         result = apply_filters_to_dataframe(df, filters, detailed=True)
 
         assert "passes_all" in result.columns
-        assert result["passes_all"].iloc[0] is True  # Ethanol passes
-        assert result["passes_all"].iloc[1] is False  # Acetaldehyde fails (reactive)
-        assert result["passes_all"].iloc[2] is True  # Benzene passes
+        assert result["passes_all"].iloc[0] == True  # noqa: E712  # Ethanol passes
+        assert result["passes_all"].iloc[1] == False  # noqa: E712  # Acetaldehyde fails
+        assert result["passes_all"].iloc[2] == True  # noqa: E712  # Benzene passes
 
     def test_calculate_properties_for_dataframe(self):
         """Test calculating properties for DataFrame."""
@@ -115,7 +127,7 @@ class TestPandasUtils:
 
         # Invalid SMILES should fail
         invalid_row = filtered[filtered["smiles"] == "invalid_smiles"]
-        assert invalid_row["passes_filter"].iloc[0] is False
+        assert invalid_row["passes_filter"].iloc[0] == False  # noqa: E712
         assert "Invalid" in invalid_row["failure_reasons"].iloc[0]
 
     def test_empty_dataframe(self):
@@ -154,8 +166,8 @@ class TestPandasUtils:
         prop_filter = PropertyFilter(mw_range=(0, 100))
         filtered = filter_dataframe(df, prop_filter, keep_failures=True)
 
-        assert filtered["passes_filter"].iloc[0] is True  # Ethanol passes
-        assert filtered["passes_filter"].iloc[1] is False  # Long chain fails
+        assert filtered["passes_filter"].iloc[0] == True  # noqa: E712  # Ethanol passes
+        assert filtered["passes_filter"].iloc[1] == False  # noqa: E712  # Long chain fails
 
     def test_none_and_empty_smiles(self):
         """Test handling of None and empty SMILES."""

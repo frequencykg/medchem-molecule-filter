@@ -107,12 +107,20 @@ def filter_dataframe(
             }
         )
 
-    results_df = pd.DataFrame(results).set_index("index")
+    results_df = pd.DataFrame(results)
+    if len(results_df) > 0:
+        results_df = results_df.set_index("index")
 
     # Add results to original dataframe
-    df["passes_filter"] = results_df["passes"]
-    if add_failure_column:
-        df["failure_reasons"] = results_df["failure_reasons"]
+    if len(results_df) > 0:
+        df["passes_filter"] = results_df["passes"]
+        if add_failure_column:
+            df["failure_reasons"] = results_df["failure_reasons"]
+    else:
+        # Empty dataframe - add empty columns
+        df["passes_filter"] = pd.Series([], dtype=bool)
+        if add_failure_column:
+            df["failure_reasons"] = pd.Series([], dtype=str)
 
     # Remove temporary molecule column
     df = df.drop(columns=["_mol_temp"])
