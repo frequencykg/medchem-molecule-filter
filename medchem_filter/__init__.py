@@ -17,6 +17,19 @@ from .filters import (
 )
 from .properties import MolecularProperties
 
+# Pandas utilities - optional import
+try:
+    from .pandas_utils import (
+        add_mol_column,
+        filter_dataframe,
+        apply_filters_to_dataframe,
+        calculate_properties_for_dataframe,
+        filter_by_properties,
+    )
+    _PANDAS_AVAILABLE = True
+except ImportError:
+    _PANDAS_AVAILABLE = False
+
 __all__ = [
     "PAINSFilter",
     "ReactiveFilter",
@@ -25,3 +38,14 @@ __all__ = [
     "FilterGroup",
     "MolecularProperties",
 ]
+
+# Add pandas utilities to __all__ if available
+if _PANDAS_AVAILABLE:
+    __all__.extend([
+        "add_mol_column",
+        "filter_dataframe",
+        "apply_filters_to_dataframe",
+        "calculate_properties_for_dataframe",
+        "filter_by_properties",
+    ])
+
