@@ -3,8 +3,9 @@ Molecular property calculators for filtering based on calculated properties.
 """
 
 from typing import Optional
+
 from rdkit import Chem
-from rdkit.Chem import Descriptors, Lipinski, Crippen
+from rdkit.Chem import Crippen, Descriptors, Lipinski
 
 
 class MolecularProperties:
@@ -13,10 +14,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_logp(mol: Chem.Mol) -> float:
         """Calculate the partition coefficient (logP).
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             LogP value
         """
@@ -25,10 +26,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_tpsa(mol: Chem.Mol) -> float:
         """Calculate the Topological Polar Surface Area (TPSA).
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             TPSA value in Ų
         """
@@ -37,10 +38,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_hbd(mol: Chem.Mol) -> int:
         """Calculate the number of Hydrogen Bond Donors (HBD).
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             Number of HBDs
         """
@@ -49,10 +50,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_hba(mol: Chem.Mol) -> int:
         """Calculate the number of Hydrogen Bond Acceptors (HBA).
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             Number of HBAs
         """
@@ -61,10 +62,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_molecular_weight(mol: Chem.Mol) -> float:
         """Calculate the molecular weight.
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             Molecular weight in g/mol
         """
@@ -73,10 +74,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_rotatable_bonds(mol: Chem.Mol) -> int:
         """Calculate the number of rotatable bonds.
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             Number of rotatable bonds
         """
@@ -85,10 +86,10 @@ class MolecularProperties:
     @staticmethod
     def calculate_aromatic_rings(mol: Chem.Mol) -> int:
         """Calculate the number of aromatic rings.
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             Number of aromatic rings
         """
@@ -97,19 +98,19 @@ class MolecularProperties:
     @staticmethod
     def calculate_all_properties(mol: Chem.Mol) -> dict:
         """Calculate all available molecular properties.
-        
+
         Args:
             mol: RDKit molecule object
-            
+
         Returns:
             Dictionary containing all calculated properties
         """
         return {
-            'logP': MolecularProperties.calculate_logp(mol),
-            'tpsa': MolecularProperties.calculate_tpsa(mol),
-            'hbd': MolecularProperties.calculate_hbd(mol),
-            'hba': MolecularProperties.calculate_hba(mol),
-            'molecular_weight': MolecularProperties.calculate_molecular_weight(mol),
-            'rotatable_bonds': MolecularProperties.calculate_rotatable_bonds(mol),
-            'aromatic_rings': MolecularProperties.calculate_aromatic_rings(mol),
+            "logP": MolecularProperties.calculate_logp(mol),
+            "tpsa": MolecularProperties.calculate_tpsa(mol),
+            "hbd": MolecularProperties.calculate_hbd(mol),
+            "hba": MolecularProperties.calculate_hba(mol),
+            "molecular_weight": MolecularProperties.calculate_molecular_weight(mol),
+            "rotatable_bonds": MolecularProperties.calculate_rotatable_bonds(mol),
+            "aromatic_rings": MolecularProperties.calculate_aromatic_rings(mol),
         }

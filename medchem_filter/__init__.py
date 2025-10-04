@@ -9,11 +9,11 @@ filters (logD, TPSA, HBD/HBA, etc.).
 __version__ = "0.1.0"
 
 from .filters import (
-    PAINSFilter,
-    ReactiveFilter,
-    HeterocycleFilter,
-    PropertyFilter,
     FilterGroup,
+    HeterocycleFilter,
+    PAINSFilter,
+    PropertyFilter,
+    ReactiveFilter,
 )
 from .properties import MolecularProperties
 
@@ -21,11 +21,12 @@ from .properties import MolecularProperties
 try:
     from .pandas_utils import (
         add_mol_column,
-        filter_dataframe,
         apply_filters_to_dataframe,
         calculate_properties_for_dataframe,
         filter_by_properties,
+        filter_dataframe,
     )
+
     _PANDAS_AVAILABLE = True
 except ImportError:
     _PANDAS_AVAILABLE = False
@@ -41,11 +42,12 @@ __all__ = [
 
 # Add pandas utilities to __all__ if available
 if _PANDAS_AVAILABLE:
-    __all__.extend([
-        "add_mol_column",
-        "filter_dataframe",
-        "apply_filters_to_dataframe",
-        "calculate_properties_for_dataframe",
-        "filter_by_properties",
-    ])
-
+    __all__.extend(
+        [
+            "add_mol_column",
+            "filter_dataframe",
+            "apply_filters_to_dataframe",
+            "calculate_properties_for_dataframe",
+            "filter_by_properties",
+        ]
+    )

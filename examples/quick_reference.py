@@ -5,13 +5,14 @@ Common usage patterns and examples.
 """
 
 from rdkit import Chem
+
 from medchem_filter import (
-    PAINSFilter,
-    ReactiveFilter,
-    HeterocycleFilter,
-    PropertyFilter,
     FilterGroup,
+    HeterocycleFilter,
     MolecularProperties,
+    PAINSFilter,
+    PropertyFilter,
+    ReactiveFilter,
 )
 
 # =============================================================================
@@ -32,10 +33,10 @@ passed, failed, reasons = pains_filter.filter_molecules(molecules)
 # =============================================================================
 
 ro5_filter = PropertyFilter(
-    mw_range=(0, 500),      # Molecular weight <= 500 Da
-    logp_range=(-float('inf'), 5),  # LogP <= 5
-    hbd_range=(0, 5),       # HBD <= 5
-    hba_range=(0, 10),      # HBA <= 10
+    mw_range=(0, 500),  # Molecular weight <= 500 Da
+    logp_range=(-float("inf"), 5),  # LogP <= 5
+    hbd_range=(0, 5),  # HBD <= 5
+    hba_range=(0, 10),  # HBA <= 10
 )
 
 mol = Chem.MolFromSmiles("CCN(CC)CC")
@@ -56,17 +57,19 @@ lead_like_filter = PropertyFilter(
 # 4. COMBINING FILTERS (Drug-like pipeline)
 # =============================================================================
 
-drug_like_pipeline = FilterGroup([
-    PAINSFilter(),              # Remove PAINS
-    ReactiveFilter(),           # Remove reactive groups
-    PropertyFilter(             # Apply Lipinski-like rules
-        mw_range=(200, 500),
-        logp_range=(-1, 5),
-        hbd_range=(0, 5),
-        hba_range=(0, 10),
-        rotatable_bonds_max=10,
-    ),
-])
+drug_like_pipeline = FilterGroup(
+    [
+        PAINSFilter(),  # Remove PAINS
+        ReactiveFilter(),  # Remove reactive groups
+        PropertyFilter(  # Apply Lipinski-like rules
+            mw_range=(200, 500),
+            logp_range=(-1, 5),
+            hbd_range=(0, 5),
+            hba_range=(0, 10),
+            rotatable_bonds_max=10,
+        ),
+    ]
+)
 
 mol = Chem.MolFromSmiles("c1ccccc1CCO")
 passes, failure_details = drug_like_pipeline.check_molecule(mol)
@@ -99,8 +102,8 @@ hba = MolecularProperties.calculate_hba(mol)
 
 # Calculate all properties at once
 props = MolecularProperties.calculate_all_properties(mol)
-# Returns: {'logP': 1.22, 'tpsa': 20.23, 'hbd': 1, 'hba': 1, 
-#           'molecular_weight': 122.17, 'rotatable_bonds': 2, 
+# Returns: {'logP': 1.22, 'tpsa': 20.23, 'hbd': 1, 'hba': 1,
+#           'molecular_weight': 122.17, 'rotatable_bonds': 2,
 #           'aromatic_rings': 1}
 
 # =============================================================================
@@ -108,16 +111,20 @@ props = MolecularProperties.calculate_all_properties(mol)
 # =============================================================================
 
 # Define custom PAINS patterns
-custom_pains = PAINSFilter(custom_patterns={
-    "my_pattern_1": "c1ccccc1N=N",
-    "my_pattern_2": "C(=O)O[N+](=O)[O-]",
-})
+custom_pains = PAINSFilter(
+    custom_patterns={
+        "my_pattern_1": "c1ccccc1N=N",
+        "my_pattern_2": "C(=O)O[N+](=O)[O-]",
+    }
+)
 
 # Define custom reactive patterns
-custom_reactive = ReactiveFilter(custom_patterns={
-    "my_reactive_1": "[Si]",  # Silicon-containing
-    "my_reactive_2": "[B]",   # Boron-containing
-})
+custom_reactive = ReactiveFilter(
+    custom_patterns={
+        "my_reactive_1": "[Si]",  # Silicon-containing
+        "my_reactive_2": "[B]",  # Boron-containing
+    }
+)
 
 # =============================================================================
 # 8. BATCH FILTERING WITH VERBOSE OUTPUT
@@ -140,15 +147,17 @@ for idx, details in failed_details.items():
 # =============================================================================
 
 # Lipinski's Rule of Five
-lipinski = PropertyFilter(mw_range=(0, 500), logp_range=(-float('inf'), 5), 
-                          hbd_range=(0, 5), hba_range=(0, 10))
+lipinski = PropertyFilter(
+    mw_range=(0, 500), logp_range=(-float("inf"), 5), hbd_range=(0, 5), hba_range=(0, 10)
+)
 
 # Veber's Rules
 veber = PropertyFilter(rotatable_bonds_max=10, tpsa_range=(0, 140))
 
 # Lead-like
-lead_like = PropertyFilter(mw_range=(200, 350), logp_range=(1, 3), 
-                           hbd_range=(0, 3), hba_range=(0, 6))
+lead_like = PropertyFilter(
+    mw_range=(200, 350), logp_range=(1, 3), hbd_range=(0, 3), hba_range=(0, 6)
+)
 
 # Fragment-like
 fragment_like = PropertyFilter(mw_range=(100, 250), logp_range=(0, 3))
@@ -157,42 +166,47 @@ fragment_like = PropertyFilter(mw_range=(100, 250), logp_range=(0, 3))
 # 10. FILTERING WORKFLOW EXAMPLE
 # =============================================================================
 
+
 def filter_compound_library(smiles_list):
     """Complete workflow for filtering a compound library."""
-    
+
     # Parse SMILES
     molecules = []
     for smiles in smiles_list:
         mol = Chem.MolFromSmiles(smiles)
         if mol is not None:
             molecules.append(mol)
-    
+
     # Define filter pipeline
-    pipeline = FilterGroup([
-        PAINSFilter(),
-        ReactiveFilter(),
-        PropertyFilter(
-            mw_range=(200, 500),
-            logp_range=(-1, 5),
-            hbd_range=(0, 5),
-            hba_range=(0, 10),
-            rotatable_bonds_max=10,
-            tpsa_range=(20, 140),
-        ),
-    ])
-    
+    pipeline = FilterGroup(
+        [
+            PAINSFilter(),
+            ReactiveFilter(),
+            PropertyFilter(
+                mw_range=(200, 500),
+                logp_range=(-1, 5),
+                hbd_range=(0, 5),
+                hba_range=(0, 10),
+                rotatable_bonds_max=10,
+                tpsa_range=(20, 140),
+            ),
+        ]
+    )
+
     # Apply filters
     passed, failed_details = pipeline.filter_molecules(molecules, verbose=True)
-    
+
     # Calculate properties for passed molecules
     results = []
     for mol in passed:
         props = MolecularProperties.calculate_all_properties(mol)
-        results.append({
-            'smiles': Chem.MolToSmiles(mol),
-            'properties': props,
-        })
-    
+        results.append(
+            {
+                "smiles": Chem.MolToSmiles(mol),
+                "properties": props,
+            }
+        )
+
     return results, failed_details
 
 

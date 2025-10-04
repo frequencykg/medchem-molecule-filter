@@ -1,20 +1,20 @@
 """Tests for pandas utility functions."""
 
-import pytest
 import pandas as pd
+import pytest
 from rdkit import Chem
 
 # Check if pandas is available
 pandas_available = True
 try:
+    from medchem_filter import FilterGroup, PAINSFilter, PropertyFilter, ReactiveFilter
     from medchem_filter.pandas_utils import (
         add_mol_column,
-        filter_dataframe,
         apply_filters_to_dataframe,
         calculate_properties_for_dataframe,
         filter_by_properties,
+        filter_dataframe,
     )
-    from medchem_filter import PAINSFilter, ReactiveFilter, PropertyFilter, FilterGroup
 except ImportError:
     pandas_available = False
 
@@ -35,10 +35,7 @@ class TestPandasUtils:
 
     def test_filter_dataframe_basic(self):
         """Test basic DataFrame filtering."""
-        df = pd.DataFrame({
-            "id": [1, 2, 3],
-            "smiles": ["CCO", "O=C1C=CC(=O)C=C1", "c1ccccc1"]
-        })
+        df = pd.DataFrame({"id": [1, 2, 3], "smiles": ["CCO", "O=C1C=CC(=O)C=C1", "c1ccccc1"]})
 
         pains_filter = PAINSFilter()
         filtered = filter_dataframe(df, pains_filter, keep_failures=False)
@@ -50,9 +47,7 @@ class TestPandasUtils:
 
     def test_filter_dataframe_with_failures(self):
         """Test DataFrame filtering keeping failure information."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "O=C1C=CC(=O)C=C1"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "O=C1C=CC(=O)C=C1"]})
 
         pains_filter = PAINSFilter()
         filtered = filter_dataframe(df, pains_filter, keep_failures=True)
@@ -65,9 +60,7 @@ class TestPandasUtils:
 
     def test_apply_filters_to_dataframe(self):
         """Test applying multiple filters to DataFrame."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "CC=O", "c1ccccc1"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "CC=O", "c1ccccc1"]})
 
         filters = [PAINSFilter(), ReactiveFilter()]
         result = apply_filters_to_dataframe(df, filters, detailed=True)
@@ -79,9 +72,7 @@ class TestPandasUtils:
 
     def test_calculate_properties_for_dataframe(self):
         """Test calculating properties for DataFrame."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "c1ccccc1"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "c1ccccc1"]})
 
         df_with_props = calculate_properties_for_dataframe(df)
 
@@ -96,9 +87,7 @@ class TestPandasUtils:
 
     def test_calculate_properties_selected(self):
         """Test calculating only selected properties."""
-        df = pd.DataFrame({
-            "smiles": ["CCO"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO"]})
 
         df_with_props = calculate_properties_for_dataframe(
             df, properties=["molecular_weight", "logP"]
@@ -110,9 +99,7 @@ class TestPandasUtils:
 
     def test_filter_by_properties(self):
         """Test property-based filtering."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "CCCCCCCCCCCCCCCC"]  # Small and large molecules
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "CCCCCCCCCCCCCCCC"]})  # Small and large molecules
 
         filtered = filter_by_properties(df, mw_range=(0, 100), keep_failures=False)
 
@@ -122,9 +109,7 @@ class TestPandasUtils:
 
     def test_invalid_smiles_handling(self):
         """Test handling of invalid SMILES."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "invalid_smiles", "c1ccccc1"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "invalid_smiles", "c1ccccc1"]})
 
         pains_filter = PAINSFilter()
         filtered = filter_dataframe(df, pains_filter, keep_failures=True)
@@ -145,9 +130,7 @@ class TestPandasUtils:
 
     def test_custom_column_names(self):
         """Test using custom column names."""
-        df = pd.DataFrame({
-            "my_smiles": ["CCO", "c1ccccc1"]
-        })
+        df = pd.DataFrame({"my_smiles": ["CCO", "c1ccccc1"]})
 
         pains_filter = PAINSFilter()
         filtered = filter_dataframe(df, pains_filter, smiles_column="my_smiles")
@@ -156,9 +139,7 @@ class TestPandasUtils:
 
     def test_filter_group_integration(self):
         """Test integration with FilterGroup."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "O=C1C=CC(=O)C=C1", "CC=O"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "O=C1C=CC(=O)C=C1", "CC=O"]})
 
         filter_group = FilterGroup([PAINSFilter(), ReactiveFilter()])
         filtered = filter_dataframe(df, filter_group, keep_failures=False)
@@ -169,9 +150,7 @@ class TestPandasUtils:
 
     def test_property_filter_integration(self):
         """Test integration with PropertyFilter."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", "CCCCCCCCCCCCCCCC"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", "CCCCCCCCCCCCCCCC"]})
 
         prop_filter = PropertyFilter(mw_range=(0, 100))
         filtered = filter_dataframe(df, prop_filter, keep_failures=True)
@@ -181,9 +160,7 @@ class TestPandasUtils:
 
     def test_none_and_empty_smiles(self):
         """Test handling of None and empty SMILES."""
-        df = pd.DataFrame({
-            "smiles": ["CCO", None, "", "c1ccccc1"]
-        })
+        df = pd.DataFrame({"smiles": ["CCO", None, "", "c1ccccc1"]})
 
         pains_filter = PAINSFilter()
         filtered = filter_dataframe(df, pains_filter, keep_failures=False)
@@ -193,12 +170,14 @@ class TestPandasUtils:
 
     def test_dataframe_preserves_other_columns(self):
         """Test that other columns are preserved during filtering."""
-        df = pd.DataFrame({
-            "id": ["A", "B", "C"],
-            "smiles": ["CCO", "c1ccccc1", "CC=O"],
-            "name": ["Ethanol", "Benzene", "Acetaldehyde"],
-            "activity": [10.5, 20.3, 5.1]
-        })
+        df = pd.DataFrame(
+            {
+                "id": ["A", "B", "C"],
+                "smiles": ["CCO", "c1ccccc1", "CC=O"],
+                "name": ["Ethanol", "Benzene", "Acetaldehyde"],
+                "activity": [10.5, 20.3, 5.1],
+            }
+        )
 
         pains_filter = PAINSFilter()
         filtered = filter_dataframe(df, pains_filter, keep_failures=False)
@@ -214,21 +193,23 @@ class TestPandasUtils:
 
     def test_lipinski_rule_of_five(self):
         """Test Lipinski's Rule of Five filtering."""
-        df = pd.DataFrame({
-            "smiles": [
-                "CCO",  # Passes
-                "CC(=O)Oc1ccccc1C(=O)O",  # Aspirin - passes
-                "CCCCCCCCCCCCCCCCCC",  # Too lipophilic - fails
-            ]
-        })
+        df = pd.DataFrame(
+            {
+                "smiles": [
+                    "CCO",  # Passes
+                    "CC(=O)Oc1ccccc1C(=O)O",  # Aspirin - passes
+                    "CCCCCCCCCCCCCCCCCC",  # Too lipophilic - fails
+                ]
+            }
+        )
 
         filtered = filter_by_properties(
             df,
             mw_range=(0, 500),
-            logp_range=(-float('inf'), 5),
+            logp_range=(-float("inf"), 5),
             hbd_range=(0, 5),
             hba_range=(0, 10),
-            keep_failures=False
+            keep_failures=False,
         )
 
         # First two should pass

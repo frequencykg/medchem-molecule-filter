@@ -1,0 +1,80 @@
+name: Auto Format Code
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  format:
+    name: Auto Format with Black and isort
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install formatting tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install black isort
+    
+    - name: Run Black formatter
+      run: |
+        black medchem_filter/ tests/ examples/ --line-length 100
+    
+    - name: Run isort
+      run: |
+        isort medchem_filter/ tests/ examples/ --profile black
+    
+    - name: Check for changes
+      id: check_changes
+      run: |
+        if [[ -n $(git status --porcelain) ]]; then
+          echo "changes=true" >> $GITHUB_OUTPUT
+          echo "Changes detected, will create/update PR"
+        else
+          echo "changes=false" >> $GITHUB_OUTPUT
+          echo "No formatting changes needed"
+        fi
+    
+    - name: Create Pull Request
+      if: steps.check_changes.outputs.changes == 'true'
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: 'style: auto-format code with Black and isort'
+        committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+        branch: auto-format-code
+        delete-branch: true
+        title: 'style: Auto-format code with Black and isort'
+        body: |
+          ## Automated Code Formatting
+          
+          This PR automatically formats the code using:
+          - **Black** (line length: 100)
+          - **isort** (profile: black)
+          
+          ### Changes
+          - Reformatted Python files to comply with Black style guide
+          - Sorted imports using isort
+          
+          This PR is automatically updated when new commits are pushed to `main` that have formatting issues.
+          
+          ---
+          🤖 This PR was automatically created by the Auto Format Code workflow.
+        labels: |
+          automated
+          style
+          formatting
