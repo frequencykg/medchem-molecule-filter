@@ -42,6 +42,8 @@ htmlcov/
 docs/_build/
 docs/_static/
 docs/_templates/
+# Exception: keep pattern images for documentation
+!docs/_static/pattern_images/
 
 # OS
 .DS_Store
