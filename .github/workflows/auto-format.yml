@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   format:
@@ -37,44 +36,15 @@ jobs:
       run: |
         isort medchem_filter/ tests/ examples/ --profile black
     
-    - name: Check for changes
-      id: check_changes
+    - name: Commit and push changes
       run: |
         if [[ -n $(git status --porcelain) ]]; then
-          echo "changes=true" >> $GITHUB_OUTPUT
-          echo "Changes detected, will create/update PR"
+          echo "Changes detected, committing and pushing..."
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "style: auto-format code with Black and isort"
+          git push
         else
-          echo "changes=false" >> $GITHUB_OUTPUT
           echo "No formatting changes needed"
         fi
-    
-    - name: Create Pull Request
-      if: steps.check_changes.outputs.changes == 'true'
-      uses: peter-evans/create-pull-request@v7
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: 'style: auto-format code with Black and isort'
-        committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-        branch: auto-format-code
-        delete-branch: true
-        title: 'style: Auto-format code with Black and isort'
-        body: |
-          ## Automated Code Formatting
-          
-          This PR automatically formats the code using:
-          - **Black** (line length: 100)
-          - **isort** (profile: black)
-          
-          ### Changes
-          - Reformatted Python files to comply with Black style guide
-          - Sorted imports using isort
-          
-          This PR is automatically updated when new commits are pushed to `main` that have formatting issues.
-          
-          ---
-          🤖 This PR was automatically created by the Auto Format Code workflow.
-        labels: |
-          automated
-          style
-          formatting
