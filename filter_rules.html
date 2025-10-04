@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filter Rules Reference &mdash; medchem-molecule-filter 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="API Reference" href="api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            medchem-molecule-filter
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Filter Rules Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pains-patterns">PAINS Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quinones-and-derivatives">Quinones and Derivatives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#catechols">Catechols</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#michael-acceptors">Michael Acceptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rhodanines">Rhodanines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-pains">Other PAINS</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#reactive-patterns">Reactive Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#electrophiles">Electrophiles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Michael Acceptors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#peroxides">Peroxides</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#diazo-compounds">Diazo Compounds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#other-reactive-groups">Other Reactive Groups</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#heterocycle-patterns">Heterocycle Patterns</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#five-membered-rings-one-heteroatom">Five-Membered Rings (One Heteroatom)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#five-membered-rings-two-heteroatoms">Five-Membered Rings (Two Heteroatoms)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#six-membered-rings-one-heteroatom">Six-Membered Rings (One Heteroatom)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#six-membered-rings-two-heteroatoms">Six-Membered Rings (Two Heteroatoms)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#six-membered-rings-three-heteroatoms">Six-Membered Rings (Three Heteroatoms)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fused-bicyclic-systems">Fused Bicyclic Systems</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saturated-heterocycles">Saturated Heterocycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#seven-membered-rings">Seven-Membered Rings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#property-ranges">Property Ranges</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lipinski-s-rule-of-five">Lipinski’s Rule of Five</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#veber-s-rules">Veber’s Rules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lead-like-properties">Lead-like Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drug-like-properties">Drug-like Properties</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">medchem-molecule-filter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Filter Rules Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/filter_rules.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="filter-rules-reference">
+<h1>Filter Rules Reference<a class="headerlink" href="#filter-rules-reference" title="Link to this heading"></a></h1>
+<p>This page documents all the filter patterns used in the library.</p>
+<section id="pains-patterns">
+<h2>PAINS Patterns<a class="headerlink" href="#pains-patterns" title="Link to this heading"></a></h2>
+<p>Pan-Assay Interference Compounds (PAINS) are molecules that frequently show up as hits in high-throughput screens but are likely false positives. These patterns identify problematic structures.</p>
+<section id="quinones-and-derivatives">
+<h3>Quinones and Derivatives<a class="headerlink" href="#quinones-and-derivatives" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>quinone_A</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1C=CC(=O)C=C1</span></code> - p-Benzoquinone pattern</p></li>
+<li><p><strong>quinone_B</strong>: <code class="docutils literal notranslate"><span class="pre">O=c1ccc(=O)cc1</span></code> - Alternative quinone representation</p></li>
+</ul>
+</section>
+<section id="catechols">
+<h3>Catechols<a class="headerlink" href="#catechols" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>catechol</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)c(O)cc1</span></code> - Catechol (1,2-dihydroxybenzene)</p></li>
+<li><p><strong>catechol_A</strong>: <code class="docutils literal notranslate"><span class="pre">[OH]c1ccccc1[OH]</span></code> - Alternative catechol pattern</p></li>
+</ul>
+</section>
+<section id="michael-acceptors">
+<h3>Michael Acceptors<a class="headerlink" href="#michael-acceptors" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>acyl_hydrazone</strong>: <code class="docutils literal notranslate"><span class="pre">C=CC(=O)N</span></code> - Acyl hydrazone pattern</p></li>
+<li><p><strong>chalcone</strong>: <code class="docutils literal notranslate"><span class="pre">O=C(C=C)c1ccccc1</span></code> - Chalcone scaffold</p></li>
+</ul>
+</section>
+<section id="rhodanines">
+<h3>Rhodanines<a class="headerlink" href="#rhodanines" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>rhodanine</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CSC(=S)N1</span></code> - Rhodanine core</p></li>
+<li><p><strong>thiazolidinone</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CSC(=O)N1</span></code> - Thiazolidinone</p></li>
+<li><p><strong>ene_rhodanine</strong>: <code class="docutils literal notranslate"><span class="pre">S=C1SC(=O)N(C)C1=C</span></code> - Ene-rhodanine</p></li>
+</ul>
+</section>
+<section id="other-pains">
+<h3>Other PAINS<a class="headerlink" href="#other-pains" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>barbiturate</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CC(=O)NC(=O)N1</span></code> - Alkylidene barbiturate</p></li>
+<li><p><strong>phenol_hydrazone</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)ccc1N=N</span></code> - Hydroxyphenyl hydrazone</p></li>
+<li><p><strong>mannich_phenol</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)c(CN)cc1</span></code> - Phenolic Mannich base</p></li>
+<li><p><strong>curcumin</strong>: <code class="docutils literal notranslate"><span class="pre">O=C(C=C)C=C(C=C)C(=O)</span></code> - Curcumin-like structure</p></li>
+<li><p><strong>beta_lactam</strong>: <code class="docutils literal notranslate"><span class="pre">C1C(=O)NC1</span></code> - Beta-lactam ring</p></li>
+<li><p><strong>styrene</strong>: <code class="docutils literal notranslate"><span class="pre">C=Cc1ccccc1</span></code> - Styrene pattern</p></li>
+<li><p><strong>nitro_aromatic</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc([N+](=O)[O-])cc1</span></code> - Nitro aromatic</p></li>
+<li><p><strong>azo</strong>: <code class="docutils literal notranslate"><span class="pre">cN=Nc</span></code> - Azo compound</p></li>
+<li><p><strong>thiourea</strong>: <code class="docutils literal notranslate"><span class="pre">NC(=S)N</span></code> - Thiourea</p></li>
+<li><p><strong>isothiocyanate</strong>: <code class="docutils literal notranslate"><span class="pre">N=C=S</span></code> - Isothiocyanate</p></li>
+</ul>
+</section>
+</section>
+<section id="reactive-patterns">
+<h2>Reactive Patterns<a class="headerlink" href="#reactive-patterns" title="Link to this heading"></a></h2>
+<p>These patterns identify chemically reactive functional groups that may cause issues in biological assays.</p>
+<section id="electrophiles">
+<h3>Electrophiles<a class="headerlink" href="#electrophiles" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>acyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[C;!$(C-[OH])][C;X3](=[OX1])[F,Cl,Br,I]</span></code> - Acyl halide</p></li>
+<li><p><strong>aldehyde</strong>: <code class="docutils literal notranslate"><span class="pre">[CX3H1](=O)[#6]</span></code> - Aldehyde group</p></li>
+<li><p><strong>alkyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[CX4][F,Cl,Br,I]</span></code> - Alkyl halide</p></li>
+<li><p><strong>anhydride</strong>: <code class="docutils literal notranslate"><span class="pre">[CX3](=[OX1])[OX2][CX3](=[OX1])</span></code> - Anhydride</p></li>
+<li><p><strong>epoxide</strong>: <code class="docutils literal notranslate"><span class="pre">C1OC1</span></code> - Epoxide (oxirane)</p></li>
+<li><p><strong>isocyanate</strong>: <code class="docutils literal notranslate"><span class="pre">N=C=O</span></code> - Isocyanate</p></li>
+<li><p><strong>sulfonyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[SX4](=[OX1])(=[OX1])[F,Cl,Br,I]</span></code> - Sulfonyl halide</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Michael Acceptors<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>alpha_beta_unsaturated_carbonyl</strong>: <code class="docutils literal notranslate"><span class="pre">C=CC(=O)</span></code> - α,β-unsaturated carbonyl</p></li>
+<li><p><strong>vinyl_sulfone</strong>: <code class="docutils literal notranslate"><span class="pre">C=CS(=O)(=O)</span></code> - Vinyl sulfone</p></li>
+<li><p><strong>vinyl_sulfonamide</strong>: <code class="docutils literal notranslate"><span class="pre">C=CS(=O)(=O)N</span></code> - Vinyl sulfonamide</p></li>
+</ul>
+</section>
+<section id="peroxides">
+<h3>Peroxides<a class="headerlink" href="#peroxides" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>peroxide</strong>: <code class="docutils literal notranslate"><span class="pre">[OX2][OX2]</span></code> - Peroxide linkage</p></li>
+<li><p><strong>peroxy_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)OO</span></code> - Peroxyacid</p></li>
+</ul>
+</section>
+<section id="diazo-compounds">
+<h3>Diazo Compounds<a class="headerlink" href="#diazo-compounds" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>diazo</strong>: <code class="docutils literal notranslate"><span class="pre">[N-]=[N+]=C</span></code> - Diazo group</p></li>
+<li><p><strong>diazonium</strong>: <code class="docutils literal notranslate"><span class="pre">[N+]#N</span></code> - Diazonium salt</p></li>
+</ul>
+</section>
+<section id="other-reactive-groups">
+<h3>Other Reactive Groups<a class="headerlink" href="#other-reactive-groups" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>sulfonyl_chloride</strong>: <code class="docutils literal notranslate"><span class="pre">S(=O)(=O)Cl</span></code> - Sulfonyl chloride</p></li>
+<li><p><strong>phosphoryl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">P(=O)[F,Cl,Br,I]</span></code> - Phosphoryl halide</p></li>
+<li><p><strong>phosphonate</strong>: <code class="docutils literal notranslate"><span class="pre">P(=O)(O)(O)</span></code> - Phosphonate</p></li>
+<li><p><strong>hydroxamic_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)N(O)</span></code> - Hydroxamic acid</p></li>
+<li><p><strong>thiol</strong>: <code class="docutils literal notranslate"><span class="pre">[SH]</span></code> - Thiol (sulfhydryl)</p></li>
+<li><p><strong>azide</strong>: <code class="docutils literal notranslate"><span class="pre">N=[N+]=[N-]</span></code> - Azide</p></li>
+<li><p><strong>crown_ether</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCCOCCOCCOC1</span></code> - Crown ether pattern</p></li>
+<li><p><strong>hydrazine</strong>: <code class="docutils literal notranslate"><span class="pre">N-N</span></code> - Hydrazine</p></li>
+<li><p><strong>peroxy_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)OO</span></code> - Peroxyacid</p></li>
+</ul>
+</section>
+</section>
+<section id="heterocycle-patterns">
+<h2>Heterocycle Patterns<a class="headerlink" href="#heterocycle-patterns" title="Link to this heading"></a></h2>
+<section id="five-membered-rings-one-heteroatom">
+<h3>Five-Membered Rings (One Heteroatom)<a class="headerlink" href="#five-membered-rings-one-heteroatom" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>pyrrole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc[nH]c1</span></code> - Pyrrole</p></li>
+<li><p><strong>furan</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccoc1</span></code> - Furan</p></li>
+<li><p><strong>thiophene</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccsc1</span></code> - Thiophene</p></li>
+</ul>
+</section>
+<section id="five-membered-rings-two-heteroatoms">
+<h3>Five-Membered Rings (Two Heteroatoms)<a class="headerlink" href="#five-membered-rings-two-heteroatoms" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>imidazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnc[nH]1</span></code> - Imidazole</p></li>
+<li><p><strong>pyrazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cn[nH]c1</span></code> - Pyrazole</p></li>
+<li><p><strong>oxazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnco1</span></code> - Oxazole</p></li>
+<li><p><strong>isoxazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnoc1</span></code> - Isoxazole</p></li>
+<li><p><strong>thiazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cncs1</span></code> - Thiazole</p></li>
+</ul>
+</section>
+<section id="six-membered-rings-one-heteroatom">
+<h3>Six-Membered Rings (One Heteroatom)<a class="headerlink" href="#six-membered-rings-one-heteroatom" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>pyridine</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccncc1</span></code> - Pyridine</p></li>
+<li><p><strong>pyran</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCOCC1</span></code> - Pyran</p></li>
+</ul>
+</section>
+<section id="six-membered-rings-two-heteroatoms">
+<h3>Six-Membered Rings (Two Heteroatoms)<a class="headerlink" href="#six-membered-rings-two-heteroatoms" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>pyrimidine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cncnc1</span></code> - Pyrimidine</p></li>
+<li><p><strong>pyrazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnccn1</span></code> - Pyrazine</p></li>
+<li><p><strong>pyridazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnncc1</span></code> - Pyridazine</p></li>
+<li><p><strong>oxazine</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCNC1</span></code> - Oxazine</p></li>
+</ul>
+</section>
+<section id="six-membered-rings-three-heteroatoms">
+<h3>Six-Membered Rings (Three Heteroatoms)<a class="headerlink" href="#six-membered-rings-three-heteroatoms" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>triazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1ncncn1</span></code> - Triazine</p></li>
+</ul>
+</section>
+<section id="fused-bicyclic-systems">
+<h3>Fused Bicyclic Systems<a class="headerlink" href="#fused-bicyclic-systems" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>indole</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2[nH]ccc2c1</span></code> - Indole</p></li>
+<li><p><strong>benzofuran</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2occc2c1</span></code> - Benzofuran</p></li>
+<li><p><strong>benzothiophene</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2sccc2c1</span></code> - Benzothiophene</p></li>
+<li><p><strong>benzimidazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2[nH]cnc2c1</span></code> - Benzimidazole</p></li>
+<li><p><strong>quinoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2ncccc2c1</span></code> - Quinoline</p></li>
+<li><p><strong>isoquinoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2cnccc2c1</span></code> - Isoquinoline</p></li>
+<li><p><strong>quinazoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2ncncc2c1</span></code> - Quinazoline</p></li>
+<li><p><strong>quinoxaline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2nccnc2c1</span></code> - Quinoxaline</p></li>
+<li><p><strong>purine</strong>: <code class="docutils literal notranslate"><span class="pre">c1nc2[nH]cnc2n1</span></code> - Purine</p></li>
+</ul>
+</section>
+<section id="saturated-heterocycles">
+<h3>Saturated Heterocycles<a class="headerlink" href="#saturated-heterocycles" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>piperidine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCNCC1</span></code> - Piperidine</p></li>
+<li><p><strong>piperazine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CNCCN1</span></code> - Piperazine</p></li>
+<li><p><strong>morpholine</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCCN1</span></code> - Morpholine</p></li>
+<li><p><strong>thiomorpholine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CSCCN1</span></code> - Thiomorpholine</p></li>
+<li><p><strong>pyrrolidine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCNC1</span></code> - Pyrrolidine</p></li>
+</ul>
+</section>
+<section id="seven-membered-rings">
+<h3>Seven-Membered Rings<a class="headerlink" href="#seven-membered-rings" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>azepine</strong>: <code class="docutils literal notranslate"><span class="pre">C1=CC=CNCC1</span></code> - Azepine</p></li>
+<li><p><strong>oxepine</strong>: <code class="docutils literal notranslate"><span class="pre">C1=CC=COCC1</span></code> - Oxepine</p></li>
+</ul>
+</section>
+</section>
+<section id="property-ranges">
+<h2>Property Ranges<a class="headerlink" href="#property-ranges" title="Link to this heading"></a></h2>
+<p>Common property ranges used in drug discovery:</p>
+<section id="lipinski-s-rule-of-five">
+<h3>Lipinski’s Rule of Five<a class="headerlink" href="#lipinski-s-rule-of-five" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Molecular Weight</strong>: ≤ 500 Da</p></li>
+<li><p><strong>LogP</strong>: ≤ 5</p></li>
+<li><p><strong>HBD</strong>: ≤ 5</p></li>
+<li><p><strong>HBA</strong>: ≤ 10</p></li>
+</ul>
+</section>
+<section id="veber-s-rules">
+<h3>Veber’s Rules<a class="headerlink" href="#veber-s-rules" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Rotatable Bonds</strong>: ≤ 10</p></li>
+<li><p><strong>TPSA</strong>: ≤ 140 Ų</p></li>
+</ul>
+</section>
+<section id="lead-like-properties">
+<h3>Lead-like Properties<a class="headerlink" href="#lead-like-properties" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Molecular Weight</strong>: 200-350 Da</p></li>
+<li><p><strong>LogP</strong>: 1-3</p></li>
+<li><p><strong>HBD</strong>: ≤ 3</p></li>
+<li><p><strong>HBA</strong>: ≤ 6</p></li>
+</ul>
+</section>
+<section id="drug-like-properties">
+<h3>Drug-like Properties<a class="headerlink" href="#drug-like-properties" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Molecular Weight</strong>: 200-500 Da</p></li>
+<li><p><strong>LogP</strong>: -1 to 5</p></li>
+<li><p><strong>HBD</strong>: 0-5</p></li>
+<li><p><strong>HBA</strong>: 0-10</p></li>
+<li><p><strong>TPSA</strong>: 20-140 Ų</p></li>
+<li><p><strong>Rotatable Bonds</strong>: ≤ 10</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api.html" class="btn btn-neutral float-left" title="API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, frequencykg.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

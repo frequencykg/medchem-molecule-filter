@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; medchem-molecule-filter 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            medchem-molecule-filter
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#filtering-with-pains">Filtering with PAINS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#property-based-filtering">Property-based Filtering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combining-multiple-filters">Combining Multiple Filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filtering-multiple-molecules">Filtering Multiple Molecules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculating-properties">Calculating Properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#working-with-heterocycles">Working with Heterocycles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-filter-patterns">Custom Filter Patterns</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter_rules.html">Filter Rules Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">medchem-molecule-filter</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
+<section id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Link to this heading"></a></h2>
+<section id="filtering-with-pains">
+<h3>Filtering with PAINS<a class="headerlink" href="#filtering-with-pains" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PAINSFilter</span>
+
+<span class="c1"># Create filter</span>
+<span class="n">pains_filter</span> <span class="o">=</span> <span class="n">PAINSFilter</span><span class="p">()</span>
+
+<span class="c1"># Check a molecule</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;c1ccccc1&quot;</span><span class="p">)</span>
+<span class="n">passes</span><span class="p">,</span> <span class="n">matched_patterns</span> <span class="o">=</span> <span class="n">pains_filter</span><span class="o">.</span><span class="n">check_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">passes</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Molecule passed PAINS filter&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Molecule failed: </span><span class="si">{</span><span class="n">matched_patterns</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="property-based-filtering">
+<h3>Property-based Filtering<a class="headerlink" href="#property-based-filtering" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PropertyFilter</span>
+
+<span class="c1"># Create filter with property ranges</span>
+<span class="n">prop_filter</span> <span class="o">=</span> <span class="n">PropertyFilter</span><span class="p">(</span>
+    <span class="n">logp_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">mw_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+    <span class="n">hbd_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="n">hba_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">)</span>
+<span class="n">passes</span><span class="p">,</span> <span class="n">reasons</span> <span class="o">=</span> <span class="n">prop_filter</span><span class="o">.</span><span class="n">check_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="combining-multiple-filters">
+<h3>Combining Multiple Filters<a class="headerlink" href="#combining-multiple-filters" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilterGroup</span><span class="p">,</span> <span class="n">PAINSFilter</span><span class="p">,</span> <span class="n">ReactiveFilter</span><span class="p">,</span> <span class="n">PropertyFilter</span>
+
+<span class="c1"># Create a comprehensive filter pipeline</span>
+<span class="n">filter_group</span> <span class="o">=</span> <span class="n">FilterGroup</span><span class="p">([</span>
+    <span class="n">PAINSFilter</span><span class="p">(),</span>
+    <span class="n">ReactiveFilter</span><span class="p">(),</span>
+    <span class="n">PropertyFilter</span><span class="p">(</span>
+        <span class="n">mw_range</span><span class="o">=</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+        <span class="n">logp_range</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># Check single molecule</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;c1ccccc1CCO&quot;</span><span class="p">)</span>
+<span class="n">passes</span><span class="p">,</span> <span class="n">details</span> <span class="o">=</span> <span class="n">filter_group</span><span class="o">.</span><span class="n">check_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Passes all filters: </span><span class="si">{</span><span class="n">passes</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">passes</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">filter_name</span><span class="p">,</span> <span class="n">reasons</span> <span class="ow">in</span> <span class="n">details</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed </span><span class="si">{</span><span class="n">filter_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">reasons</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="filtering-multiple-molecules">
+<h3>Filtering Multiple Molecules<a class="headerlink" href="#filtering-multiple-molecules" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">FilterGroup</span><span class="p">,</span> <span class="n">PAINSFilter</span><span class="p">,</span> <span class="n">ReactiveFilter</span>
+
+<span class="c1"># Create molecules</span>
+<span class="n">molecules</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;CCO&quot;</span><span class="p">),</span>           <span class="c1"># Ethanol</span>
+    <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;c1ccccc1&quot;</span><span class="p">),</span>      <span class="c1"># Benzene</span>
+    <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;CC=O&quot;</span><span class="p">),</span>          <span class="c1"># Acetaldehyde (reactive)</span>
+<span class="p">]</span>
+
+<span class="c1"># Apply filters</span>
+<span class="n">filter_group</span> <span class="o">=</span> <span class="n">FilterGroup</span><span class="p">([</span><span class="n">PAINSFilter</span><span class="p">(),</span> <span class="n">ReactiveFilter</span><span class="p">()])</span>
+<span class="n">passed</span><span class="p">,</span> <span class="n">failed_details</span> <span class="o">=</span> <span class="n">filter_group</span><span class="o">.</span><span class="n">filter_molecules</span><span class="p">(</span>
+    <span class="n">molecules</span><span class="p">,</span>
+    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Passed: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">passed</span><span class="p">)</span><span class="si">}</span><span class="s2"> molecules&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">failed_details</span><span class="p">)</span><span class="si">}</span><span class="s2"> molecules&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="calculating-properties">
+<h3>Calculating Properties<a class="headerlink" href="#calculating-properties" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">MolecularProperties</span>
+
+<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;c1ccccc1CCO&quot;</span><span class="p">)</span>
+
+<span class="c1"># Calculate individual properties</span>
+<span class="n">logp</span> <span class="o">=</span> <span class="n">MolecularProperties</span><span class="o">.</span><span class="n">calculate_logp</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">tpsa</span> <span class="o">=</span> <span class="n">MolecularProperties</span><span class="o">.</span><span class="n">calculate_tpsa</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="n">hbd</span> <span class="o">=</span> <span class="n">MolecularProperties</span><span class="o">.</span><span class="n">calculate_hbd</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+
+<span class="c1"># Calculate all properties at once</span>
+<span class="n">props</span> <span class="o">=</span> <span class="n">MolecularProperties</span><span class="o">.</span><span class="n">calculate_all_properties</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">props</span><span class="p">)</span>
+<span class="c1"># {</span>
+<span class="c1">#     &#39;logP&#39;: 1.5,</span>
+<span class="c1">#     &#39;tpsa&#39;: 20.23,</span>
+<span class="c1">#     &#39;hbd&#39;: 1,</span>
+<span class="c1">#     &#39;hba&#39;: 1,</span>
+<span class="c1">#     &#39;molecular_weight&#39;: 122.16,</span>
+<span class="c1">#     &#39;rotatable_bonds&#39;: 2,</span>
+<span class="c1">#     &#39;aromatic_rings&#39;: 1</span>
+<span class="c1"># }</span>
+</pre></div>
+</div>
+</section>
+<section id="working-with-heterocycles">
+<h3>Working with Heterocycles<a class="headerlink" href="#working-with-heterocycles" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">rdkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">HeterocycleFilter</span>
+
+<span class="c1"># Exclude molecules with heterocycles</span>
+<span class="n">filter_exclude</span> <span class="o">=</span> <span class="n">HeterocycleFilter</span><span class="p">(</span><span class="n">require_heterocycle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">mol</span> <span class="o">=</span> <span class="n">Chem</span><span class="o">.</span><span class="n">MolFromSmiles</span><span class="p">(</span><span class="s2">&quot;c1ccncc1&quot;</span><span class="p">)</span>  <span class="c1"># Pyridine</span>
+<span class="n">passes</span><span class="p">,</span> <span class="n">matched</span> <span class="o">=</span> <span class="n">filter_exclude</span><span class="o">.</span><span class="n">check_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="c1"># passes = False (contains heterocycle)</span>
+
+<span class="c1"># Require molecules with heterocycles</span>
+<span class="n">filter_require</span> <span class="o">=</span> <span class="n">HeterocycleFilter</span><span class="p">(</span><span class="n">require_heterocycle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">passes</span><span class="p">,</span> <span class="n">matched</span> <span class="o">=</span> <span class="n">filter_require</span><span class="o">.</span><span class="n">check_molecule</span><span class="p">(</span><span class="n">mol</span><span class="p">)</span>
+<span class="c1"># passes = True (contains required heterocycle)</span>
+</pre></div>
+</div>
+</section>
+<section id="custom-filter-patterns">
+<h3>Custom Filter Patterns<a class="headerlink" href="#custom-filter-patterns" title="Link to this heading"></a></h3>
+<p>You can provide custom SMARTS patterns to any filter:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">medchem_filter</span><span class="w"> </span><span class="kn">import</span> <span class="n">PAINSFilter</span>
+
+<span class="c1"># Custom PAINS patterns</span>
+<span class="n">custom_patterns</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;my_pattern_1&quot;</span><span class="p">:</span> <span class="s2">&quot;c1ccccc1N=N&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;my_pattern_2&quot;</span><span class="p">:</span> <span class="s2">&quot;C(=O)O[N+](=O)[O-]&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="nb">filter</span> <span class="o">=</span> <span class="n">PAINSFilter</span><span class="p">(</span><span class="n">custom_patterns</span><span class="o">=</span><span class="n">custom_patterns</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, frequencykg.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
