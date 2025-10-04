@@ -5,13 +5,14 @@ Tests complex workflows and interactions between multiple components.
 
 import pytest
 from rdkit import Chem
+
 from medchem_filter import (
-    PAINSFilter,
-    ReactiveFilter,
-    HeterocycleFilter,
-    PropertyFilter,
     FilterGroup,
+    HeterocycleFilter,
     MolecularProperties,
+    PAINSFilter,
+    PropertyFilter,
+    ReactiveFilter,
 )
 
 
@@ -21,24 +22,30 @@ class TestIntegration:
     def test_complete_filtering_pipeline(self):
         """Test a complete drug-like filtering pipeline."""
         # Create comprehensive filter
-        pipeline = FilterGroup([
-            PAINSFilter(),
-            ReactiveFilter(),
-            PropertyFilter(
-                mw_range=(200, 500),
-                logp_range=(-0.5, 5),
-                hbd_range=(0, 5),
-                hba_range=(0, 10),
-            ),
-        ])
+        pipeline = FilterGroup(
+            [
+                PAINSFilter(),
+                ReactiveFilter(),
+                PropertyFilter(
+                    mw_range=(200, 500),
+                    logp_range=(-0.5, 5),
+                    hbd_range=(0, 5),
+                    hba_range=(0, 10),
+                ),
+            ]
+        )
 
         # Test molecules
         molecules = [
             Chem.MolFromSmiles("CCO"),  # Ethanol - too light (MW < 200), should fail
-            Chem.MolFromSmiles("c1ccccc1CCO"),  # Phenethyl alcohol - too light (MW < 200), should fail
+            Chem.MolFromSmiles(
+                "c1ccccc1CCO"
+            ),  # Phenethyl alcohol - too light (MW < 200), should fail
             Chem.MolFromSmiles("CC=O"),  # Acetaldehyde - reactive + too light, should fail
             Chem.MolFromSmiles("O=C1C=CC(=O)C=C1"),  # Quinone - PAINS + too light, should fail
-            Chem.MolFromSmiles("c1ccc(cc1)c2ccccc2c3ccc(cc3)c4ccccc4"),  # Larger biphenyl - should pass
+            Chem.MolFromSmiles(
+                "c1ccc(cc1)c2ccccc2c3ccc(cc3)c4ccccc4"
+            ),  # Larger biphenyl - should pass
         ]
 
         passed, failed_details = pipeline.filter_molecules(molecules)
@@ -51,8 +58,16 @@ class TestIntegration:
         """Test batch processing of multiple molecules."""
         # Generate test molecules
         smiles_list = [
-            "CCO", "c1ccccc1", "CCN", "CCC", "c1ccncc1",
-            "c1ccc(O)cc1", "CCCO", "c1ccccc1O", "CCCN", "c1ccccc1C"
+            "CCO",
+            "c1ccccc1",
+            "CCN",
+            "CCC",
+            "c1ccncc1",
+            "c1ccc(O)cc1",
+            "CCCO",
+            "c1ccccc1O",
+            "CCCN",
+            "c1ccccc1C",
         ]
         molecules = [Chem.MolFromSmiles(s) for s in smiles_list]
 
@@ -71,17 +86,21 @@ class TestIntegration:
         mol = Chem.MolFromSmiles("c1ccccc1CCO")
 
         # Create two pipelines with different order
-        pipeline1 = FilterGroup([
-            PAINSFilter(),
-            ReactiveFilter(),
-            PropertyFilter(mw_range=(0, 150)),
-        ])
+        pipeline1 = FilterGroup(
+            [
+                PAINSFilter(),
+                ReactiveFilter(),
+                PropertyFilter(mw_range=(0, 150)),
+            ]
+        )
 
-        pipeline2 = FilterGroup([
-            PropertyFilter(mw_range=(0, 150)),
-            ReactiveFilter(),
-            PAINSFilter(),
-        ])
+        pipeline2 = FilterGroup(
+            [
+                PropertyFilter(mw_range=(0, 150)),
+                ReactiveFilter(),
+                PAINSFilter(),
+            ]
+        )
 
         passes1, _ = pipeline1.check_molecule(mol)
         passes2, _ = pipeline2.check_molecule(mol)
@@ -104,7 +123,7 @@ class TestIntegration:
         """Test Lipinski's Rule of Five filtering."""
         ro5_filter = PropertyFilter(
             mw_range=(0, 500),
-            logp_range=(-float('inf'), 5),
+            logp_range=(-float("inf"), 5),
             hbd_range=(0, 5),
             hba_range=(0, 10),
         )
@@ -228,9 +247,9 @@ class TestEdgeCases:
         props_benzene = MolecularProperties.calculate_all_properties(benzene)
         props_hexane = MolecularProperties.calculate_all_properties(hexane)
 
-        assert props_benzene['aromatic_rings'] == 1
-        assert props_hexane['aromatic_rings'] == 0
-        assert props_benzene['rotatable_bonds'] < props_hexane['rotatable_bonds']
+        assert props_benzene["aromatic_rings"] == 1
+        assert props_hexane["aromatic_rings"] == 0
+        assert props_benzene["rotatable_bonds"] < props_hexane["rotatable_bonds"]
 
     def test_multiple_heterocycles(self):
         """Test molecule with multiple heterocycles."""
@@ -249,7 +268,7 @@ class TestEdgeCases:
         h2 = Chem.MolFromSmiles("[H][H]")
         if h2:  # RDKit might not create this
             props = MolecularProperties.calculate_all_properties(h2)
-            assert props['molecular_weight'] > 0
+            assert props["molecular_weight"] > 0
 
     def test_charged_molecules(self):
         """Test molecules with charges."""
@@ -257,7 +276,7 @@ class TestEdgeCases:
         charged = Chem.MolFromSmiles("[Na+]")
         if charged:
             props = MolecularProperties.calculate_all_properties(charged)
-            assert 'molecular_weight' in props
+            assert "molecular_weight" in props
 
     def test_filter_molecules_preserves_order(self):
         """Test that filtering preserves molecule order."""

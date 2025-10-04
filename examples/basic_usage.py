@@ -5,13 +5,14 @@ This script demonstrates how to use various filters to screen molecules.
 """
 
 from rdkit import Chem
+
 from medchem_filter import (
-    PAINSFilter,
-    ReactiveFilter,
-    HeterocycleFilter,
-    PropertyFilter,
     FilterGroup,
+    HeterocycleFilter,
     MolecularProperties,
+    PAINSFilter,
+    PropertyFilter,
+    ReactiveFilter,
 )
 
 

@@ -2,12 +2,13 @@
 
 import pytest
 from rdkit import Chem
+
 from medchem_filter.filters import (
-    PAINSFilter,
-    ReactiveFilter,
-    HeterocycleFilter,
-    PropertyFilter,
     FilterGroup,
+    HeterocycleFilter,
+    PAINSFilter,
+    PropertyFilter,
+    ReactiveFilter,
 )
 
 

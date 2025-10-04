@@ -2,6 +2,7 @@
 
 import pytest
 from rdkit import Chem
+
 from medchem_filter.properties import MolecularProperties
 
 
@@ -74,18 +75,18 @@ class TestMolecularProperties:
         mol = Chem.MolFromSmiles("CCO")
         props = MolecularProperties.calculate_all_properties(mol)
 
-        assert 'logP' in props
-        assert 'tpsa' in props
-        assert 'hbd' in props
-        assert 'hba' in props
-        assert 'molecular_weight' in props
-        assert 'rotatable_bonds' in props
-        assert 'aromatic_rings' in props
+        assert "logP" in props
+        assert "tpsa" in props
+        assert "hbd" in props
+        assert "hba" in props
+        assert "molecular_weight" in props
+        assert "rotatable_bonds" in props
+        assert "aromatic_rings" in props
 
-        assert isinstance(props['logP'], float)
-        assert isinstance(props['tpsa'], float)
-        assert isinstance(props['hbd'], int)
-        assert isinstance(props['hba'], int)
-        assert isinstance(props['molecular_weight'], float)
-        assert isinstance(props['rotatable_bonds'], int)
-        assert isinstance(props['aromatic_rings'], int)
+        assert isinstance(props["logP"], float)
+        assert isinstance(props["tpsa"], float)
+        assert isinstance(props["hbd"], int)
+        assert isinstance(props["hba"], int)
+        assert isinstance(props["molecular_weight"], float)
+        assert isinstance(props["rotatable_bonds"], int)
+        assert isinstance(props["aromatic_rings"], int)
