@@ -5,7 +5,6 @@ Filter classes for filtering molecules based on structural patterns and properti
 from typing import Dict, List, Optional, Tuple, Union
 
 from rdkit import Chem
-from rdkit.Chem import Descriptors
 
 from .data.heterocycle_patterns import HETEROCYCLE_PATTERNS
 from .data.pains_patterns import PAINS_PATTERNS

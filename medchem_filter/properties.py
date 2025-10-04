@@ -2,8 +2,6 @@
 Molecular property calculators for filtering based on calculated properties.
 """
 
-from typing import Optional
-
 from rdkit import Chem
 from rdkit.Chem import Crippen, Descriptors, Lipinski
 

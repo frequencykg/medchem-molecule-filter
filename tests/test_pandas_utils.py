@@ -2,7 +2,6 @@
 
 import pandas as pd
 import pytest
-from rdkit import Chem
 
 # Check if pandas is available
 pandas_available = True
@@ -55,8 +54,8 @@ class TestPandasUtils:
         assert len(filtered) == 2
         assert "passes_filter" in filtered.columns
         assert "failure_reasons" in filtered.columns
-        assert filtered["passes_filter"].iloc[0] == True
-        assert filtered["passes_filter"].iloc[1] == False
+        assert filtered["passes_filter"].iloc[0] is True
+        assert filtered["passes_filter"].iloc[1] is False
 
     def test_apply_filters_to_dataframe(self):
         """Test applying multiple filters to DataFrame."""
@@ -66,9 +65,9 @@ class TestPandasUtils:
         result = apply_filters_to_dataframe(df, filters, detailed=True)
 
         assert "passes_all" in result.columns
-        assert result["passes_all"].iloc[0] == True  # Ethanol passes
-        assert result["passes_all"].iloc[1] == False  # Acetaldehyde fails (reactive)
-        assert result["passes_all"].iloc[2] == True  # Benzene passes
+        assert result["passes_all"].iloc[0] is True  # Ethanol passes
+        assert result["passes_all"].iloc[1] is False  # Acetaldehyde fails (reactive)
+        assert result["passes_all"].iloc[2] is True  # Benzene passes
 
     def test_calculate_properties_for_dataframe(self):
         """Test calculating properties for DataFrame."""
@@ -116,7 +115,7 @@ class TestPandasUtils:
 
         # Invalid SMILES should fail
         invalid_row = filtered[filtered["smiles"] == "invalid_smiles"]
-        assert invalid_row["passes_filter"].iloc[0] == False
+        assert invalid_row["passes_filter"].iloc[0] is False
         assert "Invalid" in invalid_row["failure_reasons"].iloc[0]
 
     def test_empty_dataframe(self):
@@ -155,8 +154,8 @@ class TestPandasUtils:
         prop_filter = PropertyFilter(mw_range=(0, 100))
         filtered = filter_dataframe(df, prop_filter, keep_failures=True)
 
-        assert filtered["passes_filter"].iloc[0] == True  # Ethanol passes
-        assert filtered["passes_filter"].iloc[1] == False  # Long chain fails
+        assert filtered["passes_filter"].iloc[0] is True  # Ethanol passes
+        assert filtered["passes_filter"].iloc[1] is False  # Long chain fails
 
     def test_none_and_empty_smiles(self):
         """Test handling of None and empty SMILES."""

@@ -3,7 +3,6 @@
 Tests complex workflows and interactions between multiple components.
 """
 
-import pytest
 from rdkit import Chem
 
 from medchem_filter import (
@@ -295,7 +294,6 @@ class TestEdgeCases:
     def test_property_filter_boundary_values(self):
         """Test property filters at exact boundary values."""
         mol = Chem.MolFromSmiles("CCO")  # MW ~46
-        props = MolecularProperties.calculate_all_properties(mol)
 
         # Test at exact boundaries
         filter1 = PropertyFilter(mw_range=(46, 50))
