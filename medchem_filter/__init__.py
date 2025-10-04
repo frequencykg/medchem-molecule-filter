@@ -19,7 +19,7 @@ from .properties import MolecularProperties
 
 # Pandas utilities - optional import
 try:
-    from .pandas_utils import (
+    from .pandas_utils import (  # noqa: F401
         add_mol_column,
         apply_filters_to_dataframe,
         calculate_properties_for_dataframe,

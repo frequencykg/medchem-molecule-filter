@@ -1,6 +1,5 @@
 """Tests for molecular property calculations."""
 
-import pytest
 from rdkit import Chem
 
 from medchem_filter.properties import MolecularProperties

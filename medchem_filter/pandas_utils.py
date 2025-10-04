@@ -5,7 +5,7 @@ This module provides convenient functions for applying molecular filters to
 pandas DataFrames containing SMILES strings.
 """
 
-from typing import Any, Dict, List, Optional, Union
+from typing import List, Optional, Union
 
 import pandas as pd
 from rdkit import Chem
@@ -70,7 +70,8 @@ def filter_dataframe(
         df: DataFrame containing SMILES strings
         filter_obj: Filter or FilterGroup object to apply
         smiles_column: Name of the column containing SMILES strings
-        keep_failures: If True, return all rows with pass/fail info. If False, return only passing rows
+        keep_failures: If True, return all rows with pass/fail info.
+            If False, return only passing rows
         add_failure_column: If True, add columns with failure reasons
 
     Returns:

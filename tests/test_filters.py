@@ -1,6 +1,5 @@
 """Tests for molecular filters."""
 
-import pytest
 from rdkit import Chem
 
 from medchem_filter.filters import (
