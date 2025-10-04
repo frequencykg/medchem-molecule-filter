@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-medchem-molecule-filter is a Python library for filtering small molecules using medicinal chemistry rules. It provides filters for PAINS, reactive groups, heterocycles, and molecular properties.
+medchem-molecule-filter is a Python library for filtering small molecules using medicinal chemistry rules. It provides filters for PAINS, reactive groups, heterocycles, and molecular properties. The library includes **pandas integration** for working with DataFrames containing SMILES strings.
 
 ## Development Guidelines
 
@@ -26,10 +26,13 @@ medchem-molecule-filter is a Python library for filtering small molecules using 
    - New properties
    - Edge cases (invalid molecules, empty inputs)
    - Error conditions
+   - Pandas integration (if applicable)
 
 **Test file locations:**
 - `tests/test_filters.py` - Filter functionality tests
 - `tests/test_properties.py` - Property calculation tests
+- `tests/test_integration.py` - Integration and edge case tests
+- `tests/test_pandas_utils.py` - Pandas utility tests (requires pandas)
 
 ### Code Style and Formatting
 
@@ -98,8 +101,30 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install in development mode with all dependencies
-pip install -e ".[dev,docs]"
+pip install -e ".[dev,docs,pandas]"
 ```
+
+### Pandas Integration
+
+The library includes optional pandas integration for working with DataFrames containing SMILES strings.
+
+**Key features:**
+- `filter_dataframe()` - Apply filters to DataFrames
+- `apply_filters_to_dataframe()` - Apply multiple filters with detailed results
+- `calculate_properties_for_dataframe()` - Calculate molecular properties in batch
+- `filter_by_properties()` - Property-based filtering of DataFrames
+- `add_mol_column()` - Convert SMILES to RDKit molecules
+
+**Example usage:**
+```python
+import pandas as pd
+from medchem_filter import PAINSFilter, filter_dataframe
+
+df = pd.DataFrame({"smiles": ["CCO", "c1ccccc1"]})
+filtered = filter_dataframe(df, PAINSFilter())
+```
+
+See `examples/pandas_integration.py` for comprehensive examples.
 
 ### Making Changes
 

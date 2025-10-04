@@ -28,12 +28,19 @@ A Python library for filtering small molecules using medicinal chemistry rules a
 pip install medchem-molecule-filter
 ```
 
+### With Pandas Support
+
+For pandas DataFrame integration:
+```bash
+pip install medchem-molecule-filter[pandas]
+```
+
 ### From Source
 
 ```bash
 git clone https://github.com/frequencykg/medchem-molecule-filter.git
 cd medchem-molecule-filter
-pip install -e ".[dev,docs]"
+pip install -e ".[dev,docs,pandas]"
 ```
 
 ## Quick Start
@@ -76,6 +83,36 @@ molecules = [
 passed, failed_details = filter_group.filter_molecules(molecules, verbose=True)
 print(f"Passed: {len(passed)} molecules")
 ```
+
+## Pandas Integration
+
+Work with DataFrames containing SMILES strings:
+
+```python
+import pandas as pd
+from medchem_filter import PAINSFilter, filter_dataframe, calculate_properties_for_dataframe
+
+# Create a DataFrame with SMILES
+df = pd.DataFrame({
+    "compound_id": ["CMPD001", "CMPD002", "CMPD003"],
+    "smiles": ["CCO", "c1ccccc1", "O=C1C=CC(=O)C=C1"]
+})
+
+# Filter the DataFrame
+filtered_df = filter_dataframe(df, PAINSFilter(), keep_failures=False)
+
+# Calculate properties for all compounds
+df_with_props = calculate_properties_for_dataframe(df)
+print(df_with_props[["compound_id", "smiles", "molecular_weight", "logP"]])
+
+# Apply multiple filters with detailed results
+from medchem_filter import apply_filters_to_dataframe, ReactiveFilter
+
+filters = [PAINSFilter(), ReactiveFilter()]
+result = apply_filters_to_dataframe(df, filters, detailed=True)
+```
+
+See `examples/pandas_integration.py` for more comprehensive examples.
 
 ## Filter Types
 
