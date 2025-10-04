@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Example demonstrating the use of all four filter types with reference to 
+Example demonstrating the use of all four filter types with reference to
 the comprehensive filter documentation.
 
 This example shows how to:
@@ -8,13 +8,20 @@ This example shows how to:
 2. Understand what patterns are being matched
 3. Refer to the documentation for visual representations
 
-For detailed information about each pattern including SMARTS strings and 
+For detailed information about each pattern including SMARTS strings and
 visual representations, see the documentation at:
 docs/_build/html/filter_rules.html
 """
 
 from rdkit import Chem
-from medchem_filter import PAINSFilter, ReactiveFilter, HeterocycleFilter, PropertyFilter, FilterGroup
+
+from medchem_filter import (
+    FilterGroup,
+    HeterocycleFilter,
+    PAINSFilter,
+    PropertyFilter,
+    ReactiveFilter,
+)
 
 # Sample molecules for testing
 test_molecules = {
@@ -103,10 +110,7 @@ print("  - HBA (Hydrogen Bond Acceptors) ≤ 10")
 print()
 
 prop_filter = PropertyFilter(
-    mw_range=(0, 500),
-    logp_range=(-5, 5),
-    hbd_range=(0, 5),
-    hba_range=(0, 10)
+    mw_range=(0, 500), logp_range=(-5, 5), hbd_range=(0, 5), hba_range=(0, 10)
 )
 for name, smiles in test_molecules.items():
     mol = Chem.MolFromSmiles(smiles)
@@ -120,12 +124,14 @@ print("-" * 80)
 print("Applying all filters in sequence...")
 print()
 
-filter_group = FilterGroup([
-    PAINSFilter(),
-    ReactiveFilter(),
-    HeterocycleFilter(require_heterocycle=True),
-    PropertyFilter(mw_range=(0, 500), logp_range=(-5, 5))
-])
+filter_group = FilterGroup(
+    [
+        PAINSFilter(),
+        ReactiveFilter(),
+        HeterocycleFilter(require_heterocycle=True),
+        PropertyFilter(mw_range=(0, 500), logp_range=(-5, 5)),
+    ]
+)
 
 molecules = [Chem.MolFromSmiles(s) for s in test_molecules.values()]
 passed, failed_details = filter_group.filter_molecules(molecules, verbose=False)
