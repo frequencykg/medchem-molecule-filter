@@ -47,6 +47,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Filter Rules Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pains-patterns">PAINS Patterns</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#quinones-and-derivatives">Quinones and Derivatives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#catechols">Catechols</a></li>
@@ -111,53 +112,158 @@
              
   <section id="filter-rules-reference">
 <h1>Filter Rules Reference<a class="headerlink" href="#filter-rules-reference" title="Link to this heading"></a></h1>
-<p>This page documents all the filter patterns used in the library.</p>
+<p>This page documents all the filter patterns used in the library, including SMARTS strings and visual representations of each pattern.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each filter pattern includes:</p>
+<ul class="simple">
+<li><p><strong>Pattern name</strong>: The identifier used in the code</p></li>
+<li><p><strong>SMARTS string</strong>: The chemical pattern definition</p></li>
+<li><p><strong>Description</strong>: What the pattern identifies</p></li>
+<li><p><strong>Visual representation</strong>: RDKit-generated structure drawing</p></li>
+</ul>
+<p>The images shown are generated directly from the SMARTS patterns using RDKit, providing an accurate visual representation of the substructures being matched.</p>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The library includes four main filter types:</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Filter Types Summary</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 65.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Filter Type</p></th>
+<th class="head"><p>Pattern Count</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>PAINS Filter</strong></p></td>
+<td><p>19 patterns</p></td>
+<td><p>Identifies Pan-Assay Interference Compounds that frequently show up as false positives in high-throughput screens</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Reactive Filter</strong></p></td>
+<td><p>22 patterns</p></td>
+<td><p>Detects chemically reactive functional groups that may cause issues in biological assays or drug development</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Heterocycle Filter</strong></p></td>
+<td><p>31 patterns</p></td>
+<td><p>Identifies common heterocyclic scaffolds in medicinal chemistry</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Property Filter</strong></p></td>
+<td><p>N/A</p></td>
+<td><p>Filters molecules based on calculated properties (MW, LogP, TPSA, HBD, HBA, rotatable bonds, aromatic rings)</p></td>
+</tr>
+</tbody>
+</table>
+<p>Total SMARTS Patterns: <strong>72 patterns</strong> with visual representations</p>
+</section>
 <section id="pains-patterns">
 <h2>PAINS Patterns<a class="headerlink" href="#pains-patterns" title="Link to this heading"></a></h2>
 <p>Pan-Assay Interference Compounds (PAINS) are molecules that frequently show up as hits in high-throughput screens but are likely false positives. These patterns identify problematic structures.</p>
 <section id="quinones-and-derivatives">
 <h3>Quinones and Derivatives<a class="headerlink" href="#quinones-and-derivatives" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>quinone_A</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1C=CC(=O)C=C1</span></code> - p-Benzoquinone pattern</p></li>
-<li><p><strong>quinone_B</strong>: <code class="docutils literal notranslate"><span class="pre">O=c1ccc(=O)cc1</span></code> - Alternative quinone representation</p></li>
-</ul>
+<dl>
+<dt><strong>quinone_A</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1C=CC(=O)C=C1</span></code></dt><dd><p>p-Benzoquinone pattern</p>
+<a class="reference internal image-reference" href="_images/quinone_A.png"><img alt="_images/quinone_A.png" class="align-center" src="_images/quinone_A.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>quinone_B</strong>: <code class="docutils literal notranslate"><span class="pre">O=c1ccc(=O)cc1</span></code></dt><dd><p>Alternative quinone representation</p>
+<a class="reference internal image-reference" href="_images/quinone_B.png"><img alt="_images/quinone_B.png" class="align-center" src="_images/quinone_B.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="catechols">
 <h3>Catechols<a class="headerlink" href="#catechols" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>catechol</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)c(O)cc1</span></code> - Catechol (1,2-dihydroxybenzene)</p></li>
-<li><p><strong>catechol_A</strong>: <code class="docutils literal notranslate"><span class="pre">[OH]c1ccccc1[OH]</span></code> - Alternative catechol pattern</p></li>
-</ul>
+<dl>
+<dt><strong>catechol</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)c(O)cc1</span></code></dt><dd><p>Catechol (1,2-dihydroxybenzene)</p>
+<a class="reference internal image-reference" href="_images/catechol.png"><img alt="_images/catechol.png" class="align-center" src="_images/catechol.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>catechol_A</strong>: <code class="docutils literal notranslate"><span class="pre">[OH]c1ccccc1[OH]</span></code></dt><dd><p>Alternative catechol pattern</p>
+<a class="reference internal image-reference" href="_images/catechol_A.png"><img alt="_images/catechol_A.png" class="align-center" src="_images/catechol_A.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="michael-acceptors">
 <h3>Michael Acceptors<a class="headerlink" href="#michael-acceptors" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>acyl_hydrazone</strong>: <code class="docutils literal notranslate"><span class="pre">C=CC(=O)N</span></code> - Acyl hydrazone pattern</p></li>
-<li><p><strong>chalcone</strong>: <code class="docutils literal notranslate"><span class="pre">O=C(C=C)c1ccccc1</span></code> - Chalcone scaffold</p></li>
-</ul>
+<dl>
+<dt><strong>acyl_hydrazone</strong>: <code class="docutils literal notranslate"><span class="pre">C=CC(=O)N</span></code></dt><dd><p>Acyl hydrazone pattern</p>
+<a class="reference internal image-reference" href="_images/acyl_hydrazone.png"><img alt="_images/acyl_hydrazone.png" class="align-center" src="_images/acyl_hydrazone.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>chalcone</strong>: <code class="docutils literal notranslate"><span class="pre">O=C(C=C)c1ccccc1</span></code></dt><dd><p>Chalcone scaffold</p>
+<a class="reference internal image-reference" href="_images/chalcone.png"><img alt="_images/chalcone.png" class="align-center" src="_images/chalcone.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="rhodanines">
 <h3>Rhodanines<a class="headerlink" href="#rhodanines" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>rhodanine</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CSC(=S)N1</span></code> - Rhodanine core</p></li>
-<li><p><strong>thiazolidinone</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CSC(=O)N1</span></code> - Thiazolidinone</p></li>
-<li><p><strong>ene_rhodanine</strong>: <code class="docutils literal notranslate"><span class="pre">S=C1SC(=O)N(C)C1=C</span></code> - Ene-rhodanine</p></li>
-</ul>
+<dl>
+<dt><strong>rhodanine</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CSC(=S)N1</span></code></dt><dd><p>Rhodanine core</p>
+<a class="reference internal image-reference" href="_images/rhodanine.png"><img alt="_images/rhodanine.png" class="align-center" src="_images/rhodanine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>thiazolidinone</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CSC(=O)N1</span></code></dt><dd><p>Thiazolidinone</p>
+<a class="reference internal image-reference" href="_images/thiazolidinone.png"><img alt="_images/thiazolidinone.png" class="align-center" src="_images/thiazolidinone.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>ene_rhodanine</strong>: <code class="docutils literal notranslate"><span class="pre">S=C1SC(=O)N(C)C1=C</span></code></dt><dd><p>Ene-rhodanine</p>
+<a class="reference internal image-reference" href="_images/ene_rhodanine.png"><img alt="_images/ene_rhodanine.png" class="align-center" src="_images/ene_rhodanine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="other-pains">
 <h3>Other PAINS<a class="headerlink" href="#other-pains" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>barbiturate</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CC(=O)NC(=O)N1</span></code> - Alkylidene barbiturate</p></li>
-<li><p><strong>phenol_hydrazone</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)ccc1N=N</span></code> - Hydroxyphenyl hydrazone</p></li>
-<li><p><strong>mannich_phenol</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)c(CN)cc1</span></code> - Phenolic Mannich base</p></li>
-<li><p><strong>curcumin</strong>: <code class="docutils literal notranslate"><span class="pre">O=C(C=C)C=C(C=C)C(=O)</span></code> - Curcumin-like structure</p></li>
-<li><p><strong>beta_lactam</strong>: <code class="docutils literal notranslate"><span class="pre">C1C(=O)NC1</span></code> - Beta-lactam ring</p></li>
-<li><p><strong>styrene</strong>: <code class="docutils literal notranslate"><span class="pre">C=Cc1ccccc1</span></code> - Styrene pattern</p></li>
-<li><p><strong>nitro_aromatic</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc([N+](=O)[O-])cc1</span></code> - Nitro aromatic</p></li>
-<li><p><strong>azo</strong>: <code class="docutils literal notranslate"><span class="pre">cN=Nc</span></code> - Azo compound</p></li>
-<li><p><strong>thiourea</strong>: <code class="docutils literal notranslate"><span class="pre">NC(=S)N</span></code> - Thiourea</p></li>
-<li><p><strong>isothiocyanate</strong>: <code class="docutils literal notranslate"><span class="pre">N=C=S</span></code> - Isothiocyanate</p></li>
-</ul>
+<dl>
+<dt><strong>barbiturate</strong>: <code class="docutils literal notranslate"><span class="pre">O=C1CC(=O)NC(=O)N1</span></code></dt><dd><p>Alkylidene barbiturate</p>
+<a class="reference internal image-reference" href="_images/barbiturate.png"><img alt="_images/barbiturate.png" class="align-center" src="_images/barbiturate.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>phenol_hydrazone</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)ccc1N=N</span></code></dt><dd><p>Hydroxyphenyl hydrazone</p>
+<a class="reference internal image-reference" href="_images/phenol_hydrazone.png"><img alt="_images/phenol_hydrazone.png" class="align-center" src="_images/phenol_hydrazone.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>mannich_phenol</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc(O)c(CN)cc1</span></code></dt><dd><p>Phenolic Mannich base</p>
+<a class="reference internal image-reference" href="_images/mannich_phenol.png"><img alt="_images/mannich_phenol.png" class="align-center" src="_images/mannich_phenol.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>curcumin</strong>: <code class="docutils literal notranslate"><span class="pre">O=C(C=C)C=C(C=C)C(=O)</span></code></dt><dd><p>Curcumin-like structure</p>
+<a class="reference internal image-reference" href="_images/curcumin.png"><img alt="_images/curcumin.png" class="align-center" src="_images/curcumin.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>beta_lactam</strong>: <code class="docutils literal notranslate"><span class="pre">C1C(=O)NC1</span></code></dt><dd><p>Beta-lactam ring</p>
+<a class="reference internal image-reference" href="_images/beta_lactam.png"><img alt="_images/beta_lactam.png" class="align-center" src="_images/beta_lactam.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>styrene</strong>: <code class="docutils literal notranslate"><span class="pre">C=Cc1ccccc1</span></code></dt><dd><p>Styrene pattern</p>
+<a class="reference internal image-reference" href="_images/styrene.png"><img alt="_images/styrene.png" class="align-center" src="_images/styrene.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>nitro_aromatic</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc([N+](=O)[O-])cc1</span></code></dt><dd><p>Nitro aromatic</p>
+<a class="reference internal image-reference" href="_images/nitro_aromatic.png"><img alt="_images/nitro_aromatic.png" class="align-center" src="_images/nitro_aromatic.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>azo</strong>: <code class="docutils literal notranslate"><span class="pre">cN=Nc</span></code></dt><dd><p>Azo compound</p>
+<a class="reference internal image-reference" href="_images/azo.png"><img alt="_images/azo.png" class="align-center" src="_images/azo.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>thiourea</strong>: <code class="docutils literal notranslate"><span class="pre">NC(=S)N</span></code></dt><dd><p>Thiourea</p>
+<a class="reference internal image-reference" href="_images/thiourea.png"><img alt="_images/thiourea.png" class="align-center" src="_images/thiourea.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>isothiocyanate</strong>: <code class="docutils literal notranslate"><span class="pre">N=C=S</span></code></dt><dd><p>Isothiocyanate</p>
+<a class="reference internal image-reference" href="_images/isothiocyanate.png"><img alt="_images/isothiocyanate.png" class="align-center" src="_images/isothiocyanate.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 </section>
 <section id="reactive-patterns">
@@ -165,125 +271,284 @@
 <p>These patterns identify chemically reactive functional groups that may cause issues in biological assays.</p>
 <section id="electrophiles">
 <h3>Electrophiles<a class="headerlink" href="#electrophiles" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>acyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[C;!$(C-[OH])][C;X3](=[OX1])[F,Cl,Br,I]</span></code> - Acyl halide</p></li>
-<li><p><strong>aldehyde</strong>: <code class="docutils literal notranslate"><span class="pre">[CX3H1](=O)[#6]</span></code> - Aldehyde group</p></li>
-<li><p><strong>alkyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[CX4][F,Cl,Br,I]</span></code> - Alkyl halide</p></li>
-<li><p><strong>anhydride</strong>: <code class="docutils literal notranslate"><span class="pre">[CX3](=[OX1])[OX2][CX3](=[OX1])</span></code> - Anhydride</p></li>
-<li><p><strong>epoxide</strong>: <code class="docutils literal notranslate"><span class="pre">C1OC1</span></code> - Epoxide (oxirane)</p></li>
-<li><p><strong>isocyanate</strong>: <code class="docutils literal notranslate"><span class="pre">N=C=O</span></code> - Isocyanate</p></li>
-<li><p><strong>sulfonyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[SX4](=[OX1])(=[OX1])[F,Cl,Br,I]</span></code> - Sulfonyl halide</p></li>
-</ul>
+<dl>
+<dt><strong>acyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[C;!$(C-[OH])][C;X3](=[OX1])[F,Cl,Br,I]</span></code></dt><dd><p>Acyl halide</p>
+<a class="reference internal image-reference" href="_images/acyl_halide.png"><img alt="_images/acyl_halide.png" class="align-center" src="_images/acyl_halide.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>aldehyde</strong>: <code class="docutils literal notranslate"><span class="pre">[CX3H1](=O)[#6]</span></code></dt><dd><p>Aldehyde group</p>
+<a class="reference internal image-reference" href="_images/aldehyde.png"><img alt="_images/aldehyde.png" class="align-center" src="_images/aldehyde.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>alkyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[CX4][F,Cl,Br,I]</span></code></dt><dd><p>Alkyl halide</p>
+<a class="reference internal image-reference" href="_images/alkyl_halide.png"><img alt="_images/alkyl_halide.png" class="align-center" src="_images/alkyl_halide.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>anhydride</strong>: <code class="docutils literal notranslate"><span class="pre">[CX3](=[OX1])[OX2][CX3](=[OX1])</span></code></dt><dd><p>Anhydride</p>
+<a class="reference internal image-reference" href="_images/anhydride.png"><img alt="_images/anhydride.png" class="align-center" src="_images/anhydride.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>epoxide</strong>: <code class="docutils literal notranslate"><span class="pre">C1OC1</span></code></dt><dd><p>Epoxide (oxirane)</p>
+<a class="reference internal image-reference" href="_images/epoxide.png"><img alt="_images/epoxide.png" class="align-center" src="_images/epoxide.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>isocyanate</strong>: <code class="docutils literal notranslate"><span class="pre">N=C=O</span></code></dt><dd><p>Isocyanate</p>
+<a class="reference internal image-reference" href="_images/isocyanate.png"><img alt="_images/isocyanate.png" class="align-center" src="_images/isocyanate.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>sulfonyl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">[SX4](=[OX1])(=[OX1])[F,Cl,Br,I]</span></code></dt><dd><p>Sulfonyl halide</p>
+<a class="reference internal image-reference" href="_images/sulfonyl_halide.png"><img alt="_images/sulfonyl_halide.png" class="align-center" src="_images/sulfonyl_halide.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="id1">
 <h3>Michael Acceptors<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>alpha_beta_unsaturated_carbonyl</strong>: <code class="docutils literal notranslate"><span class="pre">C=CC(=O)</span></code> - α,β-unsaturated carbonyl</p></li>
-<li><p><strong>vinyl_sulfone</strong>: <code class="docutils literal notranslate"><span class="pre">C=CS(=O)(=O)</span></code> - Vinyl sulfone</p></li>
-<li><p><strong>vinyl_sulfonamide</strong>: <code class="docutils literal notranslate"><span class="pre">C=CS(=O)(=O)N</span></code> - Vinyl sulfonamide</p></li>
-</ul>
+<dl>
+<dt><strong>alpha_beta_unsaturated_carbonyl</strong>: <code class="docutils literal notranslate"><span class="pre">C=CC(=O)</span></code></dt><dd><p>α,β-unsaturated carbonyl</p>
+<a class="reference internal image-reference" href="_images/alpha_beta_unsaturated_carbonyl.png"><img alt="_images/alpha_beta_unsaturated_carbonyl.png" class="align-center" src="_images/alpha_beta_unsaturated_carbonyl.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>vinyl_sulfone</strong>: <code class="docutils literal notranslate"><span class="pre">C=CS(=O)(=O)</span></code></dt><dd><p>Vinyl sulfone</p>
+<a class="reference internal image-reference" href="_images/vinyl_sulfone.png"><img alt="_images/vinyl_sulfone.png" class="align-center" src="_images/vinyl_sulfone.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>vinyl_sulfonamide</strong>: <code class="docutils literal notranslate"><span class="pre">C=CS(=O)(=O)N</span></code></dt><dd><p>Vinyl sulfonamide</p>
+<a class="reference internal image-reference" href="_images/vinyl_sulfonamide.png"><img alt="_images/vinyl_sulfonamide.png" class="align-center" src="_images/vinyl_sulfonamide.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="peroxides">
 <h3>Peroxides<a class="headerlink" href="#peroxides" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>peroxide</strong>: <code class="docutils literal notranslate"><span class="pre">[OX2][OX2]</span></code> - Peroxide linkage</p></li>
-<li><p><strong>peroxy_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)OO</span></code> - Peroxyacid</p></li>
-</ul>
+<dl>
+<dt><strong>peroxide</strong>: <code class="docutils literal notranslate"><span class="pre">[OX2][OX2]</span></code></dt><dd><p>Peroxide linkage</p>
+<a class="reference internal image-reference" href="_images/peroxide.png"><img alt="_images/peroxide.png" class="align-center" src="_images/peroxide.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>peroxy_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)OO</span></code></dt><dd><p>Peroxyacid</p>
+<a class="reference internal image-reference" href="_images/peroxy_acid.png"><img alt="_images/peroxy_acid.png" class="align-center" src="_images/peroxy_acid.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="diazo-compounds">
 <h3>Diazo Compounds<a class="headerlink" href="#diazo-compounds" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>diazo</strong>: <code class="docutils literal notranslate"><span class="pre">[N-]=[N+]=C</span></code> - Diazo group</p></li>
-<li><p><strong>diazonium</strong>: <code class="docutils literal notranslate"><span class="pre">[N+]#N</span></code> - Diazonium salt</p></li>
-</ul>
+<dl>
+<dt><strong>diazo</strong>: <code class="docutils literal notranslate"><span class="pre">[N-]=[N+]=C</span></code></dt><dd><p>Diazo group</p>
+<a class="reference internal image-reference" href="_images/diazo.png"><img alt="_images/diazo.png" class="align-center" src="_images/diazo.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>diazonium</strong>: <code class="docutils literal notranslate"><span class="pre">[N+]#N</span></code></dt><dd><p>Diazonium salt</p>
+<a class="reference internal image-reference" href="_images/diazonium.png"><img alt="_images/diazonium.png" class="align-center" src="_images/diazonium.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="other-reactive-groups">
 <h3>Other Reactive Groups<a class="headerlink" href="#other-reactive-groups" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>sulfonyl_chloride</strong>: <code class="docutils literal notranslate"><span class="pre">S(=O)(=O)Cl</span></code> - Sulfonyl chloride</p></li>
-<li><p><strong>phosphoryl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">P(=O)[F,Cl,Br,I]</span></code> - Phosphoryl halide</p></li>
-<li><p><strong>phosphonate</strong>: <code class="docutils literal notranslate"><span class="pre">P(=O)(O)(O)</span></code> - Phosphonate</p></li>
-<li><p><strong>hydroxamic_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)N(O)</span></code> - Hydroxamic acid</p></li>
-<li><p><strong>thiol</strong>: <code class="docutils literal notranslate"><span class="pre">[SH]</span></code> - Thiol (sulfhydryl)</p></li>
-<li><p><strong>azide</strong>: <code class="docutils literal notranslate"><span class="pre">N=[N+]=[N-]</span></code> - Azide</p></li>
-<li><p><strong>crown_ether</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCCOCCOCCOC1</span></code> - Crown ether pattern</p></li>
-<li><p><strong>hydrazine</strong>: <code class="docutils literal notranslate"><span class="pre">N-N</span></code> - Hydrazine</p></li>
-<li><p><strong>peroxy_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)OO</span></code> - Peroxyacid</p></li>
-</ul>
+<dl>
+<dt><strong>sulfonyl_chloride</strong>: <code class="docutils literal notranslate"><span class="pre">S(=O)(=O)Cl</span></code></dt><dd><p>Sulfonyl chloride</p>
+<a class="reference internal image-reference" href="_images/sulfonyl_chloride.png"><img alt="_images/sulfonyl_chloride.png" class="align-center" src="_images/sulfonyl_chloride.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>phosphoryl_halide</strong>: <code class="docutils literal notranslate"><span class="pre">P(=O)[F,Cl,Br,I]</span></code></dt><dd><p>Phosphoryl halide</p>
+<a class="reference internal image-reference" href="_images/phosphoryl_halide.png"><img alt="_images/phosphoryl_halide.png" class="align-center" src="_images/phosphoryl_halide.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>phosphonate</strong>: <code class="docutils literal notranslate"><span class="pre">P(=O)(O)(O)</span></code></dt><dd><p>Phosphonate</p>
+<a class="reference internal image-reference" href="_images/phosphonate.png"><img alt="_images/phosphonate.png" class="align-center" src="_images/phosphonate.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>hydroxamic_acid</strong>: <code class="docutils literal notranslate"><span class="pre">C(=O)N(O)</span></code></dt><dd><p>Hydroxamic acid</p>
+<a class="reference internal image-reference" href="_images/hydroxamic_acid.png"><img alt="_images/hydroxamic_acid.png" class="align-center" src="_images/hydroxamic_acid.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>thiol</strong>: <code class="docutils literal notranslate"><span class="pre">[SH]</span></code></dt><dd><p>Thiol (sulfhydryl)</p>
+<a class="reference internal image-reference" href="_images/thiol.png"><img alt="_images/thiol.png" class="align-center" src="_images/thiol.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>azide</strong>: <code class="docutils literal notranslate"><span class="pre">N=[N+]=[N-]</span></code></dt><dd><p>Azide</p>
+<a class="reference internal image-reference" href="_images/azide.png"><img alt="_images/azide.png" class="align-center" src="_images/azide.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>crown_ether</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCCOCCOCCOC1</span></code></dt><dd><p>Crown ether pattern</p>
+<a class="reference internal image-reference" href="_images/crown_ether.png"><img alt="_images/crown_ether.png" class="align-center" src="_images/crown_ether.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>hydrazine</strong>: <code class="docutils literal notranslate"><span class="pre">N-N</span></code></dt><dd><p>Hydrazine</p>
+<a class="reference internal image-reference" href="_images/hydrazine.png"><img alt="_images/hydrazine.png" class="align-center" src="_images/hydrazine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 </section>
 <section id="heterocycle-patterns">
 <h2>Heterocycle Patterns<a class="headerlink" href="#heterocycle-patterns" title="Link to this heading"></a></h2>
+<p>These patterns identify common heterocyclic scaffolds in medicinal chemistry.</p>
 <section id="five-membered-rings-one-heteroatom">
 <h3>Five-Membered Rings (One Heteroatom)<a class="headerlink" href="#five-membered-rings-one-heteroatom" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>pyrrole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc[nH]c1</span></code> - Pyrrole</p></li>
-<li><p><strong>furan</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccoc1</span></code> - Furan</p></li>
-<li><p><strong>thiophene</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccsc1</span></code> - Thiophene</p></li>
-</ul>
+<dl>
+<dt><strong>pyrrole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cc[nH]c1</span></code></dt><dd><p>Pyrrole</p>
+<a class="reference internal image-reference" href="_images/pyrrole.png"><img alt="_images/pyrrole.png" class="align-center" src="_images/pyrrole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>furan</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccoc1</span></code></dt><dd><p>Furan</p>
+<a class="reference internal image-reference" href="_images/furan.png"><img alt="_images/furan.png" class="align-center" src="_images/furan.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>thiophene</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccsc1</span></code></dt><dd><p>Thiophene</p>
+<a class="reference internal image-reference" href="_images/thiophene.png"><img alt="_images/thiophene.png" class="align-center" src="_images/thiophene.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="five-membered-rings-two-heteroatoms">
 <h3>Five-Membered Rings (Two Heteroatoms)<a class="headerlink" href="#five-membered-rings-two-heteroatoms" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>imidazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnc[nH]1</span></code> - Imidazole</p></li>
-<li><p><strong>pyrazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cn[nH]c1</span></code> - Pyrazole</p></li>
-<li><p><strong>oxazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnco1</span></code> - Oxazole</p></li>
-<li><p><strong>isoxazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnoc1</span></code> - Isoxazole</p></li>
-<li><p><strong>thiazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cncs1</span></code> - Thiazole</p></li>
-</ul>
+<dl>
+<dt><strong>imidazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnc[nH]1</span></code></dt><dd><p>Imidazole</p>
+<a class="reference internal image-reference" href="_images/imidazole.png"><img alt="_images/imidazole.png" class="align-center" src="_images/imidazole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>pyrazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cn[nH]c1</span></code></dt><dd><p>Pyrazole</p>
+<a class="reference internal image-reference" href="_images/pyrazole.png"><img alt="_images/pyrazole.png" class="align-center" src="_images/pyrazole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>oxazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnco1</span></code></dt><dd><p>Oxazole</p>
+<a class="reference internal image-reference" href="_images/oxazole.png"><img alt="_images/oxazole.png" class="align-center" src="_images/oxazole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>isoxazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnoc1</span></code></dt><dd><p>Isoxazole</p>
+<a class="reference internal image-reference" href="_images/isoxazole.png"><img alt="_images/isoxazole.png" class="align-center" src="_images/isoxazole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>thiazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1cncs1</span></code></dt><dd><p>Thiazole</p>
+<a class="reference internal image-reference" href="_images/thiazole.png"><img alt="_images/thiazole.png" class="align-center" src="_images/thiazole.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="six-membered-rings-one-heteroatom">
 <h3>Six-Membered Rings (One Heteroatom)<a class="headerlink" href="#six-membered-rings-one-heteroatom" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>pyridine</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccncc1</span></code> - Pyridine</p></li>
-<li><p><strong>pyran</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCOCC1</span></code> - Pyran</p></li>
-</ul>
+<dl>
+<dt><strong>pyridine</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccncc1</span></code></dt><dd><p>Pyridine</p>
+<a class="reference internal image-reference" href="_images/pyridine.png"><img alt="_images/pyridine.png" class="align-center" src="_images/pyridine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>pyran</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCOCC1</span></code></dt><dd><p>Pyran</p>
+<a class="reference internal image-reference" href="_images/pyran.png"><img alt="_images/pyran.png" class="align-center" src="_images/pyran.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="six-membered-rings-two-heteroatoms">
 <h3>Six-Membered Rings (Two Heteroatoms)<a class="headerlink" href="#six-membered-rings-two-heteroatoms" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>pyrimidine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cncnc1</span></code> - Pyrimidine</p></li>
-<li><p><strong>pyrazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnccn1</span></code> - Pyrazine</p></li>
-<li><p><strong>pyridazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnncc1</span></code> - Pyridazine</p></li>
-<li><p><strong>oxazine</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCNC1</span></code> - Oxazine</p></li>
-</ul>
+<dl>
+<dt><strong>pyrimidine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cncnc1</span></code></dt><dd><p>Pyrimidine</p>
+<a class="reference internal image-reference" href="_images/pyrimidine.png"><img alt="_images/pyrimidine.png" class="align-center" src="_images/pyrimidine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>pyrazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnccn1</span></code></dt><dd><p>Pyrazine</p>
+<a class="reference internal image-reference" href="_images/pyrazine.png"><img alt="_images/pyrazine.png" class="align-center" src="_images/pyrazine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>pyridazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1cnncc1</span></code></dt><dd><p>Pyridazine</p>
+<a class="reference internal image-reference" href="_images/pyridazine.png"><img alt="_images/pyridazine.png" class="align-center" src="_images/pyridazine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>oxazine</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCNC1</span></code></dt><dd><p>Oxazine</p>
+<a class="reference internal image-reference" href="_images/oxazine.png"><img alt="_images/oxazine.png" class="align-center" src="_images/oxazine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="six-membered-rings-three-heteroatoms">
 <h3>Six-Membered Rings (Three Heteroatoms)<a class="headerlink" href="#six-membered-rings-three-heteroatoms" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>triazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1ncncn1</span></code> - Triazine</p></li>
-</ul>
+<dl>
+<dt><strong>triazine</strong>: <code class="docutils literal notranslate"><span class="pre">c1ncncn1</span></code></dt><dd><p>Triazine</p>
+<a class="reference internal image-reference" href="_images/triazine.png"><img alt="_images/triazine.png" class="align-center" src="_images/triazine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="fused-bicyclic-systems">
 <h3>Fused Bicyclic Systems<a class="headerlink" href="#fused-bicyclic-systems" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>indole</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2[nH]ccc2c1</span></code> - Indole</p></li>
-<li><p><strong>benzofuran</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2occc2c1</span></code> - Benzofuran</p></li>
-<li><p><strong>benzothiophene</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2sccc2c1</span></code> - Benzothiophene</p></li>
-<li><p><strong>benzimidazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2[nH]cnc2c1</span></code> - Benzimidazole</p></li>
-<li><p><strong>quinoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2ncccc2c1</span></code> - Quinoline</p></li>
-<li><p><strong>isoquinoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2cnccc2c1</span></code> - Isoquinoline</p></li>
-<li><p><strong>quinazoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2ncncc2c1</span></code> - Quinazoline</p></li>
-<li><p><strong>quinoxaline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2nccnc2c1</span></code> - Quinoxaline</p></li>
-<li><p><strong>purine</strong>: <code class="docutils literal notranslate"><span class="pre">c1nc2[nH]cnc2n1</span></code> - Purine</p></li>
-</ul>
+<dl>
+<dt><strong>indole</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2[nH]ccc2c1</span></code></dt><dd><p>Indole</p>
+<a class="reference internal image-reference" href="_images/indole.png"><img alt="_images/indole.png" class="align-center" src="_images/indole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>benzofuran</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2occc2c1</span></code></dt><dd><p>Benzofuran</p>
+<a class="reference internal image-reference" href="_images/benzofuran.png"><img alt="_images/benzofuran.png" class="align-center" src="_images/benzofuran.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>benzothiophene</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2sccc2c1</span></code></dt><dd><p>Benzothiophene</p>
+<a class="reference internal image-reference" href="_images/benzothiophene.png"><img alt="_images/benzothiophene.png" class="align-center" src="_images/benzothiophene.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>benzimidazole</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2[nH]cnc2c1</span></code></dt><dd><p>Benzimidazole</p>
+<a class="reference internal image-reference" href="_images/benzimidazole.png"><img alt="_images/benzimidazole.png" class="align-center" src="_images/benzimidazole.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>quinoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2ncccc2c1</span></code></dt><dd><p>Quinoline</p>
+<a class="reference internal image-reference" href="_images/quinoline.png"><img alt="_images/quinoline.png" class="align-center" src="_images/quinoline.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>isoquinoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2cnccc2c1</span></code></dt><dd><p>Isoquinoline</p>
+<a class="reference internal image-reference" href="_images/isoquinoline.png"><img alt="_images/isoquinoline.png" class="align-center" src="_images/isoquinoline.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>quinazoline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2ncncc2c1</span></code></dt><dd><p>Quinazoline</p>
+<a class="reference internal image-reference" href="_images/quinazoline.png"><img alt="_images/quinazoline.png" class="align-center" src="_images/quinazoline.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>quinoxaline</strong>: <code class="docutils literal notranslate"><span class="pre">c1ccc2nccnc2c1</span></code></dt><dd><p>Quinoxaline</p>
+<a class="reference internal image-reference" href="_images/quinoxaline.png"><img alt="_images/quinoxaline.png" class="align-center" src="_images/quinoxaline.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>purine</strong>: <code class="docutils literal notranslate"><span class="pre">c1nc2[nH]cnc2n1</span></code></dt><dd><p>Purine</p>
+<a class="reference internal image-reference" href="_images/purine.png"><img alt="_images/purine.png" class="align-center" src="_images/purine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="saturated-heterocycles">
 <h3>Saturated Heterocycles<a class="headerlink" href="#saturated-heterocycles" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>piperidine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCNCC1</span></code> - Piperidine</p></li>
-<li><p><strong>piperazine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CNCCN1</span></code> - Piperazine</p></li>
-<li><p><strong>morpholine</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCCN1</span></code> - Morpholine</p></li>
-<li><p><strong>thiomorpholine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CSCCN1</span></code> - Thiomorpholine</p></li>
-<li><p><strong>pyrrolidine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCNC1</span></code> - Pyrrolidine</p></li>
-</ul>
+<dl>
+<dt><strong>piperidine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCNCC1</span></code></dt><dd><p>Piperidine</p>
+<a class="reference internal image-reference" href="_images/piperidine.png"><img alt="_images/piperidine.png" class="align-center" src="_images/piperidine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>piperazine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CNCCN1</span></code></dt><dd><p>Piperazine</p>
+<a class="reference internal image-reference" href="_images/piperazine.png"><img alt="_images/piperazine.png" class="align-center" src="_images/piperazine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>morpholine</strong>: <code class="docutils literal notranslate"><span class="pre">C1COCCN1</span></code></dt><dd><p>Morpholine</p>
+<a class="reference internal image-reference" href="_images/morpholine.png"><img alt="_images/morpholine.png" class="align-center" src="_images/morpholine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>thiomorpholine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CSCCN1</span></code></dt><dd><p>Thiomorpholine</p>
+<a class="reference internal image-reference" href="_images/thiomorpholine.png"><img alt="_images/thiomorpholine.png" class="align-center" src="_images/thiomorpholine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>pyrrolidine</strong>: <code class="docutils literal notranslate"><span class="pre">C1CCNC1</span></code></dt><dd><p>Pyrrolidine</p>
+<a class="reference internal image-reference" href="_images/pyrrolidine.png"><img alt="_images/pyrrolidine.png" class="align-center" src="_images/pyrrolidine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 <section id="seven-membered-rings">
 <h3>Seven-Membered Rings<a class="headerlink" href="#seven-membered-rings" title="Link to this heading"></a></h3>
-<ul class="simple">
-<li><p><strong>azepine</strong>: <code class="docutils literal notranslate"><span class="pre">C1=CC=CNCC1</span></code> - Azepine</p></li>
-<li><p><strong>oxepine</strong>: <code class="docutils literal notranslate"><span class="pre">C1=CC=COCC1</span></code> - Oxepine</p></li>
-</ul>
+<dl>
+<dt><strong>azepine</strong>: <code class="docutils literal notranslate"><span class="pre">C1=CC=CNCC1</span></code></dt><dd><p>Azepine</p>
+<a class="reference internal image-reference" href="_images/azepine.png"><img alt="_images/azepine.png" class="align-center" src="_images/azepine.png" style="width: 250px;" />
+</a>
+</dd>
+<dt><strong>oxepine</strong>: <code class="docutils literal notranslate"><span class="pre">C1=CC=COCC1</span></code></dt><dd><p>Oxepine</p>
+<a class="reference internal image-reference" href="_images/oxepine.png"><img alt="_images/oxepine.png" class="align-center" src="_images/oxepine.png" style="width: 250px;" />
+</a>
+</dd>
+</dl>
 </section>
 </section>
 <section id="property-ranges">
